@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;700&family=Inter:wght@600;700&family=Roboto:ital,wght@0,500;0,700;0,900;1,400&display=swap"
+    rel="stylesheet">
+  <title>Module 4. Unit 0</title>
+</head>
+
+<body>
+  <main class="page">
+
+    <div class="crm">
+      <div class="crm__wrapper">
+        <div class="crm__tittle-box">
+          <h1 class="crm__title">CRM</h1>
+          <p class="crm__finish-price">
+            Итоговая стоимость: <span class="crm__bold-text">$900.00</span>
+          </p>
+        </div>
+
+        <div class="crm__content">
+          <div class="crm__head">
+            <div class="crm__filtr-search">
+              <button class="crm__white-button">
+                <img class="filter-icon" src="./style/crm/icons/filter-icon.svg" alt="Иконка фильтра">
+                <span class="crm__text-black">Фильтр</span>
+              </button>
+              <form class="crm__search" action="#">
+                <label class="crm__search-field">
+                  <input class="crm__input-search" type="text" size="25"
+                    placeholder="Поиск по наименованию и категории">
+                </label>
+                <button class="crm__button-search" type="submit">
+                  <img class="search-icon" src="./style/crm/icons/search-icon.svg" alt="Иконка поиска">
+                </button>
+              </form>
+            </div>
+            <button class="crm__button">
+              <a href="#openModal">Добавить товар</a>
+            </button>
+          </div>
+
+          <div class="crm__table-wrapper">
+            <table class="crm__table">
+              <thead class="crm__table-head">
+                <tr class="crm__table-tr">
+                  <th class="crm__table-th crm__table-th--pos_left">ID</th>
+                  <th class="crm__table-th crm__table-th--pos_left">Наименование</th>
+                  <th class="crm__table-th crm__table-th--pos_left">Категория</th>
+                  <th class="crm__table-th">Ед/Изм</th>
+                  <th class="crm__table-th">Количество</th>
+                  <th class="crm__table-th crm__table-th--pos_right">Цена</th>
+                  <th class="crm__table-th crm__table-th--pos_right">Итог</th>
+                  <th class="crm__table-th crm__table-th--flex"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="crm__table-row">
+                  <td class="crm__table-td crm__table-td--pos_left">246016548</td>
+                  <td class="crm__table-td crm__table-td--pos_left">Навигационная система Soundmax</td>
+                  <td class="crm__table-td crm__table-td--pos_left">Техника для дома</td>
+                  <td class="crm__table-td">шт</td>
+                  <td class="crm__table-td">5</td>
+                  <td class="crm__table-td crm__table-td--pos_right">$100</td>
+                  <td class="crm__table-td crm__table-td--pos_right">$500</td>
+                  <td class="crm__table-td crm__table-td--flex">
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/image-not.svg" alt="Изображение товара нет">
+                    </button>
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/button-correct.svg"
+                        alt="Иконка корректировки товара">
+                    </button>
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/button-delete.svg" alt="Иконка удаления товара">
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="crm__table-td crm__table-td--pos_left">937295527</td>
+                  <td class="crm__table-td crm__table-td--pos_left">Настольная игра “На 4-х ногах”</td>
+                  <td class="crm__table-td crm__table-td--pos_left">Настольные игры</td>
+                  <td class="crm__table-td">шт</td>
+                  <td class="crm__table-td">12</td>
+                  <td class="crm__table-td crm__table-td--pos_right">$14</td>
+                  <td class="crm__table-td crm__table-td--pos_right">$168</td>
+                  <td class="crm__table-td crm__table-td--flex">
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/image-not.svg" alt="Изображение товара нет">
+                    </button>
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/button-correct.svg"
+                        alt="Иконка корректировки товара">
+                    </button>
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/button-delete.svg" alt="Иконка удаления товара">
+                    </button>
+                  </td>
+
+                </tr>
+                <tr>
+                  <td class="crm__table-td crm__table-td--pos_left">246016548</td>
+                  <td class="crm__table-td crm__table-td--pos_left">Навигационная система Soundmax</td>
+                  <td class="crm__table-td crm__table-td--pos_left">Техника для дома</td>
+                  <td class="crm__table-td">шт</td>
+                  <td class="crm__table-td">5</td>
+                  <td class="crm__table-td crm__table-td--pos_right">$100</td>
+                  <td class="crm__table-td crm__table-td--pos_right">$500</td>
+                  <td class="crm__table-td crm__table-td--flex">
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/image-yes.svg" alt="Изображение товара нет">
+                    </button>
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/button-correct.svg"
+                        alt="Иконка корректировки товара">
+                    </button>
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/button-delete.svg" alt="Иконка удаления товара">
+                    </button>
+                  </td>
+                </tr>
+
+                <tr class="crm__table-row">
+                  <td class="crm__table-td crm__table-td--pos_left">246016548</td>
+                  <td class="crm__table-td crm__table-td--pos_left">Навигационная система Soundmax</td>
+                  <td class="crm__table-td crm__table-td--pos_left">Техника для дома</td>
+                  <td class="crm__table-td">шт</td>
+                  <td class="crm__table-td">5</td>
+                  <td class="crm__table-td crm__table-td--pos_right">$100</td>
+                  <td class="crm__table-td crm__table-td--pos_right">$500</td>
+                  <td class="crm__table-td crm__table-td--flex">
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/image-yes.svg" alt="Изображение товара нет">
+                    </button>
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/button-correct.svg"
+                        alt="Иконка корректировки товара">
+                    </button>
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/button-delete.svg" alt="Иконка удаления товара">
+                    </button>
+                  </td>
+                </tr>
+
+                <tr class="crm__table-row">
+                  <td class="crm__table-td crm__table-td--pos_left">246016548</td>
+                  <td class="crm__table-td crm__table-td--pos_left">Навигационная система Soundmax</td>
+                  <td class="crm__table-td crm__table-td--pos_left">Техника для дома</td>
+                  <td class="crm__table-td">шт</td>
+                  <td class="crm__table-td">5</td>
+                  <td class="crm__table-td crm__table-td--pos_right">$100</td>
+                  <td class="crm__table-td crm__table-td--pos_right">$500</td>
+                  <td class="crm__table-td crm__table-td--flex">
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/image-yes.svg" alt="Изображение товара нет">
+                    </button>
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/button-correct.svg"
+                        alt="Иконка корректировки товара">
+                    </button>
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/button-delete.svg" alt="Иконка удаления товара">
+                    </button>
+                  </td>
+                </tr>
+
+                <tr class="crm__table-row">
+                  <td class="crm__table-td crm__table-td--pos_left">246016548</td>
+                  <td class="crm__table-td crm__table-td--pos_left">Навигационная система Soundmax</td>
+                  <td class="crm__table-td crm__table-td--pos_left">Техника для дома</td>
+                  <td class="crm__table-td">шт</td>
+                  <td class="crm__table-td">5</td>
+                  <td class="crm__table-td crm__table-td--pos_right">$100</td>
+                  <td class="crm__table-td crm__table-td--pos_right">$500</td>
+                  <td class="crm__table-td crm__table-td--flex">
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/image-yes.svg" alt="Изображение товара нет">
+                    </button>
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/button-correct.svg"
+                        alt="Иконка корректировки товара">
+                    </button>
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/button-delete.svg" alt="Иконка удаления товара">
+                    </button>
+                  </td>
+                </tr>
+
+                <tr class="crm__table-row">
+                  <td class="crm__table-td crm__table-td--pos_left">246016548</td>
+                  <td class="crm__table-td crm__table-td--pos_left">Навигационная система Soundmax</td>
+                  <td class="crm__table-td crm__table-td--pos_left">Техника для дома</td>
+                  <td class="crm__table-td">шт</td>
+                  <td class="crm__table-td">5</td>
+                  <td class="crm__table-td crm__table-td--pos_right">$100</td>
+                  <td class="crm__table-td crm__table-td--pos_right">$500</td>
+                  <td class="crm__table-td crm__table-td--flex">
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/image-yes.svg" alt="Изображение товара нет">
+                    </button>
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/button-correct.svg"
+                        alt="Иконка корректировки товара">
+                    </button>
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/button-delete.svg" alt="Иконка удаления товара">
+                    </button>
+                  </td>
+                </tr>
+                <tr class="crm__table-row">
+                  <td class="crm__table-td crm__table-td--pos_left">246016548</td>
+                  <td class="crm__table-td crm__table-td--pos_left">Навигационная система Soundmax</td>
+                  <td class="crm__table-td crm__table-td--pos_left">Техника для дома</td>
+                  <td class="crm__table-td">шт</td>
+                  <td class="crm__table-td">5</td>
+                  <td class="crm__table-td crm__table-td--pos_right">$100</td>
+                  <td class="crm__table-td crm__table-td--pos_right">$500</td>
+                  <td class="crm__table-td crm__table-td--flex">
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/image-yes.svg" alt="Изображение товара нет">
+                    </button>
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/button-correct.svg"
+                        alt="Иконка корректировки товара">
+                    </button>
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/button-delete.svg" alt="Иконка удаления товара">
+                    </button>
+                  </td>
+                </tr>
+
+                <tr class="crm__table-row">
+                  <td class="crm__table-td crm__table-td--pos_left">246016548</td>
+                  <td class="crm__table-td crm__table-td--pos_left">Навигационная система Soundmax</td>
+                  <td class="crm__table-td crm__table-td--pos_left">Техника для дома</td>
+                  <td class="crm__table-td">шт</td>
+                  <td class="crm__table-td">5</td>
+                  <td class="crm__table-td crm__table-td--pos_right">$100</td>
+                  <td class="crm__table-td crm__table-td--pos_right">$500</td>
+                  <td class="crm__table-td crm__table-td--flex">
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/image-yes.svg" alt="Изображение товара нет">
+                    </button>
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/button-correct.svg"
+                        alt="Иконка корректировки товара">
+                    </button>
+                    <button class="crm__btn">
+                      <img class="img-product" src="./style/crm/icons/button-delete.svg" alt="Иконка удаления товара">
+                    </button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+            <div class="crm__table-footer">
+              <p class="crm__quantity-elements">
+                Показывать на странице:
+                <select class="crm__number-elements" name="user__number-elements">
+                  <option value="1">10</option>
+                  <option value="2">15</option>
+                  <option value="3">20</option>
+                </select>
+              </p>
+              <p class="crm__page-number">1-10 of 276</p>
+              <button class="previous-page">
+                <img src="./style/crm/icons/previous-page.svg" alt="Иконка кнопки предыдущей страницы"
+                  class="next-icon">
+              </button>
+              <button class="next-page">
+                <img src="./style/crm/icons/next-page.svg" alt="Иконка кнопки следущей страницы" class="next-icon">
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal" id="openModal">
+      <div class="modal-wrapper">
+        <form class="form" id="my-form">
+          <div class="container">
+
+            <h2 class="form__title-box">Добавить товар</h2>
+
+            <button class="form__button-window" type="submit"></button>
+
+            <fieldset class="form__box">
+
+              <label class="form__label form__label_position_left">
+                <span class="form__label-name">Наименование</span>
+                <input class="form__text-input" type="text" name="category">
+              </label>
+
+              <label class="form__label form__label_position_left">
+                <span class="form__label-name">Категория</span>
+                <input class="form__text-input" type="text" name="category">
+              </label>
+
+              <label class="form__label form__label_position_left">
+                <span class="form__label-name">Единицы измерения</span>
+                <input class="form__text-input" type="text" name="units">
+              </label>
+
+              <div class="form__div">
+                <label class="form__label">
+                  <input class="form__checkbox" type="checkbox" name="discont" value="discont-on">
+                </label>
+                <label class="form__label">
+                  <span class="form__label-name">Дисконт</span>
+                  <input class="form__text-input form__text-input_type_discont" type="text" name="discont" disabled>
+                </label>
+              </div>
+
+              <label class="form__label form__label_great_height">
+                <span class="form__label-name">Описание</span>
+                <textarea class="form__discription" name="discription"></textarea>
+              </label>
+
+              <label class="form__label form__label_position_right">
+                <span class="form__label-name">Количество</span>
+                <input class="form__text-input" type="number" name="count">
+              </label>
+
+              <label class="form__label form__label_position_right">
+                <span class="form__label-name">Цена</span>
+                <input class="form__text-input" type="text" name="price">
+              </label>
+
+              <button class="form__button_lit-text form__button" type="submit" value="Добавить товар" form="my-form">Добавить
+                изображение
+              </button>
+
+            </fieldset>
+
+            <div class="form__button-wrap">
+              <p class="form__finish-price">
+                Итоговая стоимость: <span class="form__bold-text">$ 900.00</span>
+              </p>
+              <button class="form__button_big-text form__button" type="submit" value="Добавить товар" form="my-form">Добавить
+                товар
+              </button>
+            </div>
+
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </main>
+</body>
+
+</html>
