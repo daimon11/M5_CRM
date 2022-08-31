@@ -11,6 +11,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;700&family=Inter:wght@600;700&family=Roboto:ital,wght@0,500;0,700;0,900;1,400&display=swap"
     rel="stylesheet">
+  <script src="./m5u2/m5u2.js" defer></script>
   <title>Module 4. Unit 0</title>
 </head>
 
@@ -44,7 +45,7 @@
               </form>
             </div>
             <button class="crm__button">
-              <a href="#openModal">Добавить товар</a>
+              Добавить товар
             </button>
           </div>
 
@@ -285,13 +286,21 @@
       </div>
     </div>
 
-
-    <div class="modal" id="openModal">
+    <div class="modal modal_flex" id="openModal">
       <div class="modal-wrapper">
         <form class="form" id="my-form">
           <div class="container">
 
-            <h2 class="form__title-box">Добавить товар</h2>
+            <div class="form__title-wrapper">
+              <h2 class="form__title-box">Добавить товар</h2>
+              <div class="form__id-prod">
+                <span class="text-gray">
+                  id: 201910241
+                </span>
+                <button class="form__button-id" type="submit">
+                </button>
+              </div>
+            </div>
 
             <button class="form__button-window" type="submit"></button>
 
@@ -337,7 +346,8 @@
                 <input class="form__text-input" type="text" name="price">
               </label>
 
-              <button class="form__button_lit-text form__button" type="submit" value="Добавить товар" form="my-form">Добавить
+              <button class="form__button_lit-text form__button" type="submit" value="Добавить товар"
+                form="my-form">Добавить
                 изображение
               </button>
 
@@ -347,7 +357,8 @@
               <p class="form__finish-price">
                 Итоговая стоимость: <span class="form__bold-text">$ 900.00</span>
               </p>
-              <button class="form__button_big-text form__button" type="submit" value="Добавить товар" form="my-form">Добавить
+              <button class="form__button_big-text form__button" type="submit" value="Добавить товар"
+                form="my-form">Добавить
                 товар
               </button>
             </div>

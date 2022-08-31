@@ -38,24 +38,32 @@
   z-index: 2;
 }
 
-.form__title-box {
-  font-size: 24px;
-  font-weight: bold;
-  color: #6E6893;
-  letter-spacing: 0.1em;
+.form__title-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   margin: 0 0 43px 0;
   position: relative;
 }
 
-.form__title-box::after {
+.form__title-wrapper::after {
   content: '';
   position: absolute;
   margin: 0;
   padding: 0;
   border: 1px solid #C6C2DE;
   width: 100%;
-  top: 35px;
+  top: 50px;
   left: 0;
+}
+
+.form__title-box {
+  line-height: 29px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #6E6893;
+  letter-spacing: 0.1em;
 }
 
 .form__button-window {
@@ -72,6 +80,31 @@
   top: 20px;
   cursor: pointer;
   padding: 0;
+}
+
+.form__id-prod {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 13px;
+}
+
+.form__button-id {
+  width: 15px;
+  height: 15px;
+  border: 0;
+  background-image: url(../add-product/icons/id-button.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.text-gray {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 12px;
+  color: #C5C5C5;
 }
 
 .form__box {
@@ -228,6 +261,10 @@
 .form__bold-text {
   font-weight: 700;
   font-size: 18px;
+}
+
+.modal_flex {
+  display: flex;
 }
 
 @media (max-width: 690px) {
