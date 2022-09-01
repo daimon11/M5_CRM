@@ -146,10 +146,11 @@
   border-radius: 6px;
   height: 40px;
   width: 100%;
-  padding: 0;
+  padding: 0 0 0 11px;
   margin-top: 5px;
   resize: none;
 }
+
 
 .form__label-name {
   padding-left: 11px;
