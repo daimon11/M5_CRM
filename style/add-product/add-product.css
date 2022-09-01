@@ -263,7 +263,7 @@
   font-size: 18px;
 }
 
-.modal_flex {
+.modal__visible {
   display: flex;
 }
 

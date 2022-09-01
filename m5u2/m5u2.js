@@ -1,15 +1,15 @@
 'use strict';
 
-const formTittle = document.getElementsByClassName('form__title-box');
+const formTittle = document.querySelector('.form__title-box');
 
-const productID = document.getElementsByClassName('text-gray');
+const productID = document.querySelector('.text-gray');
 
-const productBtnID = document.getElementsByClassName('form__button-id');
+const productBtnID = document.querySelector('.form__button-id');
 
-const newProductForm = document.getElementsByClassName('form__box');
+const newProductForm = document.querySelector('.form__box');
 
-const checkbox = document.getElementsByClassName('form__checkbox');
+const checkbox = document.querySelector('.form__checkbox');
 
-const textDiscont = document.getElementsByClassName('form__text-input_type_discont');
+const textDiscont = document.querySelector('.form__text-input_type_discont');
 
-const finishPrice = document.getElementsByClassName('form__bold-text');
+const finishPrice = document.querySelector('.form__bold-text');
