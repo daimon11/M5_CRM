@@ -264,9 +264,9 @@
   font-size: 18px;
 }
 
-.modal_visible {
+/* .modal_visible {
   display: flex;
-}
+} */
 
 @media (max-width: 690px) {
   .form__box {

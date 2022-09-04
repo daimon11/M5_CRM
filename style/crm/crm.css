@@ -145,7 +145,11 @@
 .crm__table-td {
   padding: 15px 0;
   border-top: 1px solid #D9D5EC;
-  ;
+}
+
+.crm__table-td {
+  text-transform: none;
+  color: #25213B;
 }
 
 .crm__table-th--pos_left,
@@ -181,11 +185,6 @@
   justify-content: space-between;
   padding-right: 15px;
   padding-left: 50px;
-}
-
-.crm__table-td {
-  text-transform: none;
-  color: #25213B;
 }
 
 .crm__table-list {

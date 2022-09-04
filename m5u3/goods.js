@@ -1,5 +1,5 @@
-
-[
+'use strict';
+const products = [
   {
     "id": 253842678,
     "title": "Смартфон Xiaomi 11T 8/128GB",
@@ -9,10 +9,7 @@
     "discont": false,
     "count": 3,
     "units": "шт",
-    "images": {
-      "small": "img/smrtxiaomi11t-m.jpg",
-      "big": "img/smrtxiaomi11t-b.jpg"
-    }
+    "images": "Изображение есть"
   },
   {
     "id": 296378448,
@@ -23,10 +20,7 @@
     "discont": 5,
     "count": 1,
     "units": "шт",
-    "images": {
-      "small": "img/cheetancar-m.jpg",
-      "big": "img/cheetancar-b.jpg"
-    }
+    "images": "Изображение отсутствует"
   },
   {
     "id": 215796548,
@@ -37,10 +31,7 @@
     "discont": 15,
     "count": 4,
     "units": "шт",
-    "images": {
-      "small": "img/tvboxmecool-m.jpg",
-      "big": "img/tvboxmecool-b.jpg"
-    }
+    "images": "Изображение есть"
   },
   {
     "id": 246258248,
@@ -51,9 +42,6 @@
     "discont": false,
     "count": 420,
     "units": "v",
-    "images": {
-      "small": "img/lan_proconnect43-3-25.jpg",
-      "big": "img/lan_proconnect43-3-25-b.jpg"
-    }
+    "images": 'Изображение есть',
   }
-]
+];
