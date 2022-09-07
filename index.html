@@ -11,8 +11,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;700&family=Inter:wght@600;700&family=Roboto:ital,wght@0,500;0,700;0,900;1,400&display=swap"
     rel="stylesheet">
-  <script src="./m5u3/goods.js" defer></script>
-  <script src="./m5u3/main.js" defer></script>
+  <script src="./script/goods.js" defer></script>
+  <script src="./script/main.js" defer></script>
   <title>Module 5. Unit 3</title>
 </head>
 
@@ -307,17 +307,17 @@
 
             <fieldset class="form__box">
 
-              <label class="form__label form__label_position_left">
+              <label class="form__label form__label--position_left">
                 <span class="form__label-name">Наименование</span>
                 <input class="form__text-input" type="text" name="category">
               </label>
 
-              <label class="form__label form__label_position_left">
+              <label class="form__label form__label--position_left">
                 <span class="form__label-name">Категория</span>
                 <input class="form__text-input" type="text" name="category">
               </label>
 
-              <label class="form__label form__label_position_left">
+              <label class="form__label form__label--position_left">
                 <span class="form__label-name">Единицы измерения</span>
                 <input class="form__text-input" type="text" name="units">
               </label>
@@ -328,26 +328,26 @@
                 </label>
                 <label class="form__label">
                   <span class="form__label-name">Дисконт</span>
-                  <input class="form__text-input form__text-input_type_discont" type="text" name="discont" disabled>
+                  <input class="form__text-input form__text-input--type_discont" type="text" name="discont" disabled>
                 </label>
               </div>
 
-              <label class="form__label form__label_great_height">
+              <label class="form__label form__label--great_height">
                 <span class="form__label-name">Описание</span>
                 <textarea class="form__discription" name="discription"></textarea>
               </label>
 
-              <label class="form__label form__label_position_right">
+              <label class="form__label form__label--position_right">
                 <span class="form__label-name">Количество</span>
                 <input class="form__text-input" type="number" name="count">
               </label>
 
-              <label class="form__label form__label_position_right">
+              <label class="form__label form__label--position_right">
                 <span class="form__label-name">Цена</span>
                 <input class="form__text-input" type="text" name="price">
               </label>
 
-              <button class="form__button_lit-text form__button" type="submit" value="Добавить товар"
+              <button class="form__button--lit-text form__button" type="submit" value="Добавить товар"
                 form="my-form">Добавить
                 изображение
               </button>
@@ -358,7 +358,7 @@
               <p class="form__finish-price">
                 Итоговая стоимость: <span class="form__bold-text">$ 900.00</span>
               </p>
-              <button class="form__button_big-text form__button" type="submit" value="Добавить товар"
+              <button class="form__button--big-text form__button" type="submit" value="Добавить товар"
                 form="my-form">Добавить
                 товар
               </button>

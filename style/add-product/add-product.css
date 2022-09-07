@@ -126,15 +126,15 @@
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
 
-.form__label_position_left:first-child {
+.form__label--position_left:first-child {
   grid-area: label_name;
 }
 
-.form__label_position_right:nth-child(3) {
+.form__label--position_right:nth-child(3) {
   grid-area: label_price;
 }
 
-.form__label_great_height {
+.form__label--great_height {
   grid-area: label_description;
 }
 
@@ -213,11 +213,11 @@
   opacity: 1
 }
 
-.form__checkbox:checked:after+.form__text-input_discont {
+.form__checkbox:checked:after+.form__text-input--type_discont {
   background-color: #F4F2FF;
 }
 
-.form__text-input_type_discont {
+.form__text-input--type_discont {
   margin-left: 50px;
   max-width: 200px;
   background-color: #EEEEEE;
@@ -243,7 +243,7 @@
   cursor: pointer;
 }
 
-.form__button_big-text {
+.form__button--big-text {
   border: 0;
   padding: 10px 25px;
   border-radius: 6px;
@@ -254,7 +254,7 @@
   cursor: pointer;
 }
 
-.form__button_lit-text {
+.form__button--lit-text {
   margin-top: 20px;
   grid-area: button_img;
 }
