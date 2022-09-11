@@ -47,3 +47,30 @@ const renderGoods = (arr) => {
 };
 
 renderGoods(products);
+
+// module 5 unit 5
+
+const init = () => {
+  const modalWindow = document.querySelector('.modal');
+  const form = document.querySelector('.form');
+  const addProductBtn = document.querySelector('.page .crm .crm__content .crm__head .crm__button');
+  const closeBtn = document.querySelector('.form__button-window');
+
+  addProductBtn.addEventListener('click', () => {
+    modalWindow.classList.add('modal_visible');
+  });
+
+  form.addEventListener('click', event => {
+    event.stopPropagation();
+  });
+
+  modalWindow.addEventListener('click', () => {
+    modalWindow.classList.remove('modal_visible');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    modalWindow.classList.remove('modal_visible');
+  });
+};
+
+init();

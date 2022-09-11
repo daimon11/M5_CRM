@@ -151,7 +151,6 @@
   resize: none;
 }
 
-
 .form__label-name {
   padding-left: 11px;
   line-height: 15px;
@@ -264,9 +263,9 @@
   font-size: 18px;
 }
 
-/* .modal_visible {
+.modal_visible {
   display: flex;
-} */
+}
 
 @media (max-width: 690px) {
   .form__box {
