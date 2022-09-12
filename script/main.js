@@ -2,6 +2,7 @@
 
 const createRow = ({ id, title, category, units, price, count, discont, images }) => {
   const row = document.createElement('tr');
+  row.classList.add('crm__table-row');
   row.id = id;
   row.innerHTML = `
   <td class="crm__table-td crm__table-td--pos_left">${id}</td>
@@ -14,11 +15,11 @@ const createRow = ({ id, title, category, units, price, count, discont, images }
   <td class="crm__table-td crm__table-td--flex">
     <button class="crm__btn">
       ${images && (images.small || images.big) ?
-        `<img
+      `<img
         class="img-product"
         src="./style/crm/icons/image-not.svg"
         alt="Изображение товара есть">` :
-        `<img
+      `<img
           class="img-product"
           src="./style/crm/icons/image-yes.svg"
           alt="Изображение товара нет">`
@@ -31,7 +32,7 @@ const createRow = ({ id, title, category, units, price, count, discont, images }
             alt="Иконка корректировки товара">
         </button>
         <button class="crm__btn">
-          <img class="img-product"
+          <img class="img-del-btn"
             src="./style/crm/icons/button-delete.svg"
             alt="Иконка удаления товара">
         </button>
@@ -52,25 +53,39 @@ renderGoods(products);
 
 const init = () => {
   const modalWindow = document.querySelector('.modal');
-  const form = document.querySelector('.form');
   const addProductBtn = document.querySelector('.page .crm .crm__content .crm__head .crm__button');
-  const closeBtn = document.querySelector('.form__button-window');
+  const table = document.querySelector('.crm__table-body');
+
+  const deleteItem = (id, arr) => {
+    for (let i = 0; i < arr.length; i++) {
+      if (id == arr[i].id) {
+        arr.splice(i, 1);
+      };
+    };
+    console.log(arr);
+  }
 
   addProductBtn.addEventListener('click', () => {
     modalWindow.classList.add('modal_visible');
   });
 
-  form.addEventListener('click', event => {
-    event.stopPropagation();
+  modalWindow.addEventListener('click', e => {
+    const target = e.target;
+    if (target === modalWindow || target.closest('.form__button-window')) {
+      modalWindow.classList.remove('modal_visible');
+    }
   });
 
-  modalWindow.addEventListener('click', () => {
-    modalWindow.classList.remove('modal_visible');
-  });
-
-  closeBtn.addEventListener('click', () => {
-    modalWindow.classList.remove('modal_visible');
+  table.addEventListener('click', e => {
+    const target = e.target;
+    if (target.closest('.img-del-btn')) {
+      let createID = target.closest('.crm__table-row').id;
+      deleteItem(createID, products);
+      target.closest('.crm__table-row').remove();
+    }
   });
 };
 
 init();
+
+
