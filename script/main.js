@@ -71,7 +71,9 @@ const init = () => {
 
   modalWindow.addEventListener('click', e => {
     const target = e.target;
-    if (target === modalWindow || target.closest('.form__button-window')) {
+    console.log(target);
+    if (target === modalWindow || target.closest('.form__button-window')
+    || target.closest('.modal-wrapper')) {
       modalWindow.classList.remove('modal_visible');
     }
   });
