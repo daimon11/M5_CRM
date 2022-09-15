@@ -13,7 +13,7 @@
     rel="stylesheet">
   <script src="./script/goods.js" defer></script>
   <script src="./script/main.js" defer></script>
-  <title>Module 5. Unit 3</title>
+  <title>Module 5. CRM</title>
 </head>
 
 <body>
@@ -293,7 +293,7 @@
           <div class="form__title-wrapper">
             <h2 class="form__title-box">Добавить товар</h2>
             <div class="form__id-prod">
-              <span class="text-gray">
+              <span class="text-gray vendor-code__id">
                 id: 201910241
               </span>
               <button class="form__button-id" type="submit">
@@ -307,48 +307,50 @@
 
             <label class="form__label form__label--position_left">
               <span class="form__label-name">Наименование</span>
-              <input class="form__text-input" type="text" name="category">
+              <input class="form__text-input" type="text" name="title" required>
             </label>
 
             <label class="form__label form__label--position_left">
               <span class="form__label-name">Категория</span>
-              <input class="form__text-input" type="text" name="category">
+              <input class="form__text-input" type="text" name="category" required>
             </label>
 
             <label class="form__label form__label--position_left">
               <span class="form__label-name">Единицы измерения</span>
-              <input class="form__text-input" type="text" name="units">
+              <input class="form__text-input" type="text" name="units" required>
             </label>
 
             <div class="form__div">
               <label class="form__label">
-                <input class="form__checkbox" type="checkbox" name="discont" value="discont-on">
+                <input class="form__checkbox" type="checkbox" name="discont-off">
               </label>
               <label class="form__label">
                 <span class="form__label-name">Дисконт</span>
-                <input class="form__text-input form__text-input--type_discont" type="text" name="discont" disabled>
+                <input class="form__text-input form__text-input--type_discont" type="number" name="discont" id="discont"
+                  disabled>
               </label>
             </div>
 
             <label class="form__label form__label--great_height">
               <span class="form__label-name">Описание</span>
-              <textarea class="form__discription" name="discription"></textarea>
+              <textarea class="form__description" type="text" name="description" required></textarea>
             </label>
 
             <label class="form__label form__label--position_right">
               <span class="form__label-name">Количество</span>
-              <input class="form__text-input" type="number" name="count">
+              <input class="form__text-input" type="number" name="count" id="count" required>
             </label>
 
             <label class="form__label form__label--position_right">
               <span class="form__label-name">Цена</span>
-              <input class="form__text-input" type="text" name="price">
+              <input class="form__text-input" type="number" name="price" id="price" required>
             </label>
-
+            
             <button class="form__button--lit-text form__button" type="submit" value="Добавить товар"
               form="my-form">Добавить
               изображение
             </button>
+
 
           </fieldset>
 

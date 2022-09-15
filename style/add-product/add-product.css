@@ -129,7 +129,7 @@
 }
 
 .form__text-input,
-.form__discription {
+.form__description {
   display: block;
   background-color: #F2F0F9;
   border: none;
@@ -141,14 +141,15 @@
   resize: none;
 }
 
+.form__description {
+  padding: 11px;
+  height: 112px;
+}
+
 .form__label-name {
   padding-left: 11px;
   line-height: 15px;
   letter-spacing: 0.05em;
-}
-
-.form__discription {
-  height: 112px;
 }
 
 .form__div {
@@ -254,6 +255,11 @@
 
 .modal_visible {
   display: flex;
+}
+
+.border_active {
+  border: 1px solid green;
+  background: green;
 }
 
 @media (max-width: 690px) {
