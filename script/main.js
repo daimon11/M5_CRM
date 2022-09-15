@@ -28,11 +28,11 @@ const createRow = ({
       ${images && (images.small || images.big) ?
       `<img
         class="img-product"
-        src="./style/crm/icons/image-not.svg"
+        src="./style/crm/icons/image-yes.svg"
         alt="Изображение товара есть">` :
       `<img
           class="img-product"
-          src="./style/crm/icons/image-yes.svg"
+          src="./style/crm/icons/image-not.svg"
           alt="Изображение товара нет">`}
         </button>
         <button class="crm__btn">
