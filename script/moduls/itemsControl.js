@@ -19,7 +19,7 @@ const addContactProducts = ({
   discont = false,
   count,
   units,
-  // images,
+  images,
 }, id, arr) => {
   id = id.textContent;
   const contact = {
@@ -31,8 +31,11 @@ const addContactProducts = ({
     'discont': `${discont}`,
     'count': +`${count}`,
     'units': `${units}`,
-    // 'images': `${images}`,
+    'images': `${images}`,
   };
+  if (contact.images === 'undefined') {
+    delete contact.images;
+  }
   arr.push(contact);
   setStorage('CRMproducts', arr);
 };

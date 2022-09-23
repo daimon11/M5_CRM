@@ -26,6 +26,7 @@ const idProductControl = (span) => {
 const discontControl = (modalWindow, discontInput, checkbox) => {
   modalWindow.addEventListener('click', e => {
     const target = e.target;
+    console.log(target);
     switch (true) {
       case (target.closest('.form__checkbox') &&
         discontInput.hasAttribute('disabled')):
@@ -43,6 +44,15 @@ const discontControl = (modalWindow, discontInput, checkbox) => {
         break;
       default:
         break;
+    }
+  });
+};
+
+const btnImg = (modal, btn) => {
+  modal.addEventListener('click', e => {
+    const target = e.target;
+    if (target.closest('.form__button--lit-text')) {
+      btn.click();
     }
   });
 };
@@ -74,24 +84,27 @@ const updatePriceProductControl = (form, span, price, count, discont) => {
 };
 
 const formControl = (
+  form,
+  list,
+  IDProduct,
+  modalWindow,
+  spanCRM,
+  spanForm,
+  inputPrice,
+  inputCount,
+  discontInput,
+  CRMproducts,
+  btnDownloadImg,
+  inputHidden,
+) => {
+  updatePriceProductControl(
     form,
-    list,
-    IDProduct,
-    modalWindow,
-    spanCRM,
     spanForm,
     inputPrice,
     inputCount,
     discontInput,
-    CRMproducts,
-) => {
-  updatePriceProductControl(
-      form,
-      spanForm,
-      inputPrice,
-      inputCount,
-      discontInput,
   );
+
 
   form.addEventListener('submit', e => {
     e.preventDefault();
@@ -110,4 +123,5 @@ export default {
   discontControl,
   modalControl,
   formControl,
+  btnImg,
 };

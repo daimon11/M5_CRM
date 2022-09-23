@@ -15,6 +15,7 @@ const {
   discontControl,
   modalControl,
   formControl,
+  btnImg,
 } = modalWindow;
 
 const {
@@ -43,6 +44,7 @@ const init = () => {
   const list = document.querySelector('.crm__table-body');
   const inputPrice = document.querySelector('#price');
   const inputCount = document.querySelector('#count');
+  const inputHidden = document.querySelector('.form__text-input--hidden');
   const totalSumAllSpan = document.querySelector('.crm__bold-text');
   const finishSumProductSpan = document.querySelector('.form__bold-text');
   finishSumProductSpan.textContent = 0;
@@ -63,6 +65,7 @@ const init = () => {
   totalSumAllSpan.textContent = totalSumTable();
 
   discontControl(modalWindow, discontInput, checkbox);
+  btnImg(modalWindow, inputHidden);
   modalControl(addProductBtn, modalWindow, IDProduct);
   deleteItemInTable(table, totalSumAllSpan, CRMproducts);
   formControl(
@@ -76,11 +79,9 @@ const init = () => {
       inputCount,
       discontInput,
       CRMproducts,
+      inputHidden,
   );
 };
 
 init();
 
-
-const a = `привет ` + `, ` + `работает`;
-console.log(a);
