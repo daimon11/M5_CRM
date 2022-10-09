@@ -65,6 +65,18 @@ const deleteItemInTable = (table, span, arr) => {
       span.textContent = totalSumTable();
     }
   });
+
+  table.addEventListener('click', e => {
+    const target = e.target;
+    if (target.closest('.img-correct-product') &&
+    target.closest('.img-product')) {
+      const btn = target.closest('.img-correct-product');
+      const url = btn.querySelector('.img-product').getAttribute('data-pic');
+      const top = ((screen.height - 600) / 2);
+      const left = ((screen.width - 600) / 2);
+      open(url,'','width = 600,height = 600,top='+top+',left='+left+'');
+    }
+  });
 };
 
 export default {

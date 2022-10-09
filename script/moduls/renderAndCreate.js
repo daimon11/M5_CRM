@@ -32,24 +32,26 @@ const createRow = ({
     ${(price * count) * (1 - discont / 100)}
   </td>
   <td class="crm__table-td crm__table-td--flex">
-    <button class="crm__btn">
+    <button 
+    class="crm__btn img-correct-product">
       ${images && (images.small || images.big) ?
       `<img
         class="img-product"
         src="./style/crm/icons/image-yes.svg"
-        alt="Изображение товара есть">` :
+        data-pic="http://www.mobileui.cn/blog/uploads/2012/07/161029fNL.jpg"
+        alt="Изображение товара есть"` :
       `<img
-          class="img-product"
+          class="no-img-product"
           src="./style/crm/icons/image-not.svg"
           alt="Изображение товара нет">`}
-        </button>
-        <button class="crm__btn">
+    </button>
+        <button class="crm__btn correct-product">
           <img
-            class="img-product"
+            class="button-correct"
             src="./style/crm/icons/button-correct.svg"
             alt="Иконка корректировки товара">
         </button>
-        <button class="crm__btn">
+        <button class="crm__btn del-product">
           <img class="img-del-btn"
             src="./style/crm/icons/button-delete.svg"
             alt="Иконка удаления товара">

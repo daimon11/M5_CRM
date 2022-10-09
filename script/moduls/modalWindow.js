@@ -26,7 +26,6 @@ const idProductControl = (span) => {
 const discontControl = (modalWindow, discontInput, checkbox) => {
   modalWindow.addEventListener('click', e => {
     const target = e.target;
-    console.log(target);
     switch (true) {
       case (target.closest('.form__checkbox') &&
         discontInput.hasAttribute('disabled')):
