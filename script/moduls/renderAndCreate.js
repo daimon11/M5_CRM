@@ -1,8 +1,11 @@
-import serviceStorage from './serviceStorage.js';
-
-const {
-  setStorage,
-} = serviceStorage;
+const totalSumTable = () => {
+  const sums = document.querySelectorAll('.finish-sum');
+  let result = 0;
+  for (let i = 0; i < sums.length; i++) {
+    result += +sums[i].innerText;
+  }
+  return result;
+};
 
 const createRow = ({
   id,
@@ -12,7 +15,7 @@ const createRow = ({
   price,
   count,
   discont = 0,
-  images,
+  image,
 }) => {
   if (discont === 'false') {
     discont = false;
@@ -34,7 +37,7 @@ const createRow = ({
   <td class="crm__table-td crm__table-td--flex">
     <button 
     class="crm__btn img-correct-product">
-      ${images && (images.small || images.big) ?
+      ${(image !== 'image/notimage.jpg') ?
       `<img
         class="img-product"
         src="./style/crm/icons/image-yes.svg"
@@ -61,18 +64,25 @@ const createRow = ({
   return row;
 };
 
-const renderGoods = (arr, elem) => {
-  elem.append(...arr.map(item => createRow(item)));
-  setStorage('CRMproducts', arr);
-};
+const renderGoods = async (err, arr) => {
+  const totalSumAllSpan = document.querySelector('.crm__bold-text');
+  const spanSumBlock = totalSumAllSpan.closest('.crm__finish-price');
+  const elem = document.querySelector('.crm__table-body');
+  elem.innerHTML = '';
 
-const totalSumTable = () => {
-  const sums = document.querySelectorAll('.finish-sum');
-  let result = 0;
-  for (let i = 0; i < sums.length; i++) {
-    result += +sums[i].innerText;
+  console.log('renderGoods arr = ', arr);
+
+  if (err) {
+    const h2 = document.createElement('h2');
+    h2.style.color = 'red';
+    h2.textContent = err;
+    elem.append(h2);
+    return;
   }
-  return result;
+
+  elem.append(...arr.map(item => createRow(item)));
+  totalSumAllSpan.textContent = totalSumTable();
+  spanSumBlock.classList.remove('visually-hidden');
 };
 
 export default {

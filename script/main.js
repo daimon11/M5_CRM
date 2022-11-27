@@ -1,15 +1,9 @@
-// массив с данными
-import { products } from './goods.js';
+const URL = 'http://localhost:3000/api/goods';
 
-// функционал
-import serviceStorage from './moduls/serviceStorage.js';
 import modalWindow from './moduls/modalWindow.js';
 import renderAndCreate from './moduls/renderAndCreate.js';
 import itemsControl from './moduls/itemsControl.js';
-
-const {
-  getStorage,
-} = serviceStorage;
+import {productsRender} from './moduls/httpRequest.js';
 
 const {
   discontControl,
@@ -19,17 +13,12 @@ const {
 } = modalWindow;
 
 const {
-  renderGoods,
   totalSumTable,
 } = renderAndCreate;
 
 const {
   deleteItemInTable,
 } = itemsControl;
-
-
-// манипуляции с модальным окном
-
 
 const init = () => {
   const modalWindow = document.querySelector('.modal');
@@ -38,10 +27,8 @@ const init = () => {
   const table = document.querySelector('.crm__table-body');
   const discontInput =
     document.querySelector('.form__text-input--type_discont');
-  const IDProduct = document.querySelector('.vendor-code__id');
   const checkbox = document.querySelector('.form__checkbox');
   const form = document.querySelector('.form');
-  const list = document.querySelector('.crm__table-body');
   const inputPrice = document.querySelector('#price');
   const inputCount = document.querySelector('#count');
   const inputHidden = document.querySelector('.form__text-input--hidden');
@@ -49,29 +36,16 @@ const init = () => {
   const finishSumProductSpan = document.querySelector('.form__bold-text');
   finishSumProductSpan.textContent = 0;
 
-  const productsOrStorage = () => {
-    if (getStorage().length === 0) {
-      return products;
-    } else {
-      return getStorage();
-    }
-  };
+  const CRMproducts = productsRender(URL);
 
-  const CRMproducts = productsOrStorage();
-
-  console.log('CRMproducts: ', CRMproducts);
-
-  renderGoods(CRMproducts, table);
   totalSumAllSpan.textContent = totalSumTable();
 
   discontControl(modalWindow, discontInput, checkbox);
   btnImg(modalWindow, inputHidden);
-  modalControl(addProductBtn, modalWindow, IDProduct);
-  deleteItemInTable(table, totalSumAllSpan, CRMproducts);
+  modalControl(addProductBtn, modalWindow);
+  deleteItemInTable(table);
   formControl(
       form,
-      list,
-      IDProduct,
       modalWindow,
       totalSumAllSpan,
       finishSumProductSpan,
@@ -79,9 +53,7 @@ const init = () => {
       inputCount,
       discontInput,
       CRMproducts,
-      inputHidden,
   );
 };
 
 init();
-

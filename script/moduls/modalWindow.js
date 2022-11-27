@@ -1,26 +1,16 @@
-import itemsControl from './itemsControl.js';
 import renderAndCreate from './renderAndCreate.js';
+
+import { httpRequest, productsRender } from './httpRequest.js';
+
+const modalError = document.querySelector('.modal-error');
+const errorCloseBtn = document.querySelector('.error__close-btn');
 
 const {
   totalSumTable,
 } = renderAndCreate;
 
-const {
-  addContactProducts,
-  addContactPage,
-} = itemsControl;
-
 const closeModal = (modalWindow) => {
   modalWindow.classList.remove('modal_visible');
-};
-
-const idProductControl = (span) => {
-  span.textContent = '';
-  const randomIntFromInterval = (min, max) => {
-    const num = Math.floor(Math.random() * (max - min + 1) + min);
-    return num;
-  };
-  span.textContent = randomIntFromInterval(200000000, 300000000);
 };
 
 const discontControl = (modalWindow, discontInput, checkbox) => {
@@ -56,10 +46,9 @@ const btnImg = (modal, btn) => {
   });
 };
 
-const modalControl = (addProductBtn, modalWindow, IDProduct) => {
+const modalControl = (addProductBtn, modalWindow) => {
   addProductBtn.addEventListener('click', () => {
     modalWindow.classList.add('modal_visible');
-    idProductControl(IDProduct);
   });
 
   modalWindow.addEventListener('click', e => {
@@ -82,39 +71,96 @@ const updatePriceProductControl = (form, span, price, count, discont) => {
   });
 };
 
-const formControl = (
+const addContactProducts = ({
+  title,
+  price,
+  description,
+  category,
+  discont = false,
+  count,
+  units,
+  images,
+},
+  modalError,
   form,
-  list,
-  IDProduct,
   modalWindow,
-  spanCRM,
-  spanForm,
-  inputPrice,
-  inputCount,
-  discontInput,
-  CRMproducts,
-  btnDownloadImg,
-  inputHidden,
-) => {
-  updatePriceProductControl(
+  totalSumAllSpan) => {
+  const contact = {
+    'title': `${title}`,
+    'price': +`${price}`,
+    'description': `${description}`,
+    'category': `${category}`,
+    'discont': `${discont}`,
+    'count': +`${count}`,
+    'units': `${units}`,
+    'images': `${images}`,
+  };
+  if (contact.images === 'undefined') {
+    delete contact.images;
+  }
+
+  httpRequest(`http://localhost:3000/api/goods`, {
+    method: 'POST',
+    body: {
+      'title': `${contact.title}`,
+      'price': +`${contact.price}`,
+      'description': `${contact.description}`,
+      'category': `${contact.category}`,
+      'discont': `${contact.discont}`,
+      'count': +`${contact.count}`,
+      'units': `${contact.units}`,
+      'image': `${contact.image}`,
+    },
+    callback(err, data) {
+      if (err) {
+        console.warn(err, data);
+        modalError.classList.remove('visually-hidden');
+        errorCloseBtn.addEventListener('click', () => {
+          modalError.classList.add('visually-hidden');
+        });
+      } else {
+        form.reset();
+        closeModal(modalWindow);
+        totalSumAllSpan.textContent = totalSumTable();
+        productsRender(`http://localhost:3000/api/goods`);
+      }
+    },
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+};
+
+
+const formControl = (
     form,
-    spanForm,
+    modalWindow,
+    totalSumAllSpan,
+    finishSumProductSpan,
     inputPrice,
     inputCount,
     discontInput,
+) => {
+  updatePriceProductControl(
+      form,
+      finishSumProductSpan,
+      inputPrice,
+      inputCount,
+      discontInput,
   );
-
 
   form.addEventListener('submit', e => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const newContact = Object.fromEntries(formData);
+
     console.log('newContact', newContact);
-    addContactPage(newContact, list, IDProduct);
-    addContactProducts(newContact, IDProduct, CRMproducts);
-    form.reset();
-    closeModal(modalWindow);
-    spanCRM.textContent = totalSumTable();
+    addContactProducts(
+        newContact,
+        modalError,
+        form,
+        modalWindow,
+        totalSumAllSpan);
   });
 };
 
