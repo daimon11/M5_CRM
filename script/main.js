@@ -2,23 +2,18 @@ const URL = 'http://localhost:3000/api/goods';
 
 import modalWindow from './moduls/modalWindow.js';
 import renderAndCreate from './moduls/renderAndCreate.js';
-import itemsControl from './moduls/itemsControl.js';
+import {deleteItemInTable} from './moduls/itemsControl.js';
 import {productsRender} from './moduls/httpRequest.js';
 
 const {
   discontControl,
   modalControl,
   formControl,
-  btnImg,
 } = modalWindow;
 
 const {
   totalSumTable,
 } = renderAndCreate;
-
-const {
-  deleteItemInTable,
-} = itemsControl;
 
 const init = () => {
   const modalWindow = document.querySelector('.modal');
@@ -34,15 +29,13 @@ const init = () => {
   const inputHidden = document.querySelector('.form__text-input--hidden');
   const totalSumAllSpan = document.querySelector('.crm__bold-text');
   const finishSumProductSpan = document.querySelector('.form__bold-text');
-  finishSumProductSpan.textContent = 0;
 
   const CRMproducts = productsRender(URL);
 
   totalSumAllSpan.textContent = totalSumTable();
 
   discontControl(modalWindow, discontInput, checkbox);
-  btnImg(modalWindow, inputHidden);
-  modalControl(addProductBtn, modalWindow);
+  modalControl(addProductBtn, modalWindow, inputHidden);
   deleteItemInTable(table);
   formControl(
       form,
