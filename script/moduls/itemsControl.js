@@ -1,18 +1,4 @@
-import { httpRequest, httpRequestDel, productsRender } from './httpRequest.js';
-
-// const renderErrModal = () => {
-//   const modalError = document.createElement('div');
-//   modalError.classList.add('modal-error');
-//   modalError.innerHTML = `
-//     <div class="error">
-//       <div class="error__wrapper">
-//         <button class="error__close-btn"></button>
-//           <img src="./style/add-product/icons/err-icon.svg" alt="Изображение ошибки" class="error-img">
-//         <p class="error__text">ЧТО-ТО ПОШЛО НЕ ТАК</p>
-//       </div>
-//     </div>
-//   `;
-// };
+import { httpRequestDel } from './httpRequest.js';
 
 const deleteItemInTable = (table) => {
   table.addEventListener('click', e => {

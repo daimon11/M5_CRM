@@ -60,17 +60,6 @@ const modalControl = (addProductBtn, modalWindow) => {
   });
 };
 
-const updatePriceProductControl = (form, span, price, count, discont) => {
-  form.addEventListener('change', e => {
-    const target = e.target;
-    if (target === price || target === count || target === discont);
-    span.textContent =
-      Math.floor((
-        `${(price.value * count.value) *
-        (1 - discont.value / 100)}` * 100) / 100);
-  });
-};
-
 const addContactProducts = ({
   title,
   price,
@@ -84,7 +73,8 @@ const addContactProducts = ({
   modalError,
   form,
   modalWindow,
-  totalSumAllSpan) => {
+  totalSumAllSpan,
+  finishSumProductSpan) => {
   const contact = {
     'title': `${title}`,
     'price': +`${price}`,
@@ -121,6 +111,7 @@ const addContactProducts = ({
       } else {
         form.reset();
         closeModal(modalWindow);
+        finishSumProductSpan.textContent = 0;
         totalSumAllSpan.textContent = totalSumTable();
         productsRender(`http://localhost:3000/api/goods`);
       }
@@ -141,13 +132,16 @@ const formControl = (
     inputCount,
     discontInput,
 ) => {
-  updatePriceProductControl(
-      form,
-      finishSumProductSpan,
-      inputPrice,
-      inputCount,
-      discontInput,
-  );
+  form.addEventListener('change', e => {
+    const target = e.target;
+    if (target === inputPrice ||
+      target === inputCount ||
+      target === discontInput);
+    finishSumProductSpan.textContent =
+      Math.floor((
+        `${(inputPrice.value * inputCount.value) *
+        (1 - discontInput.value / 100)}` * 100) / 100);
+  });
 
   form.addEventListener('submit', e => {
     e.preventDefault();
@@ -160,7 +154,8 @@ const formControl = (
         modalError,
         form,
         modalWindow,
-        totalSumAllSpan);
+        totalSumAllSpan,
+        finishSumProductSpan);
   });
 };
 
