@@ -1,15 +1,9 @@
-import renderAndCreate from './renderAndCreate.js';
-
-import { httpRequest, productsRender } from './httpRequest.js';
+import { addContactProducts } from './itemsControl.js';
 
 const modalError = document.querySelector('.modal-error');
 const errorCloseBtn = document.querySelector('.error__close-btn');
 
-const {
-  totalSumTable,
-} = renderAndCreate;
-
-const closeModal = (modalWindow) => {
+export const closeModal = (modalWindow) => {
   modalWindow.classList.remove('modal_visible');
 };
 
@@ -37,29 +31,26 @@ const discontControl = (modalWindow, discontInput, checkbox) => {
   });
 };
 
-const btnImg = (modal, btn) => {
-  modal.addEventListener('click', e => {
-    const target = e.target;
-    if (target.closest('.form__button--lit-text')) {
-      btn.click();
-    }
-  });
-};
-
-const modalControl = (addProductBtn, modalWindow) => {
+const modalControl = (addProductBtn, modalWindow, inputHidden) => {
   addProductBtn.addEventListener('click', () => {
     modalWindow.classList.add('modal_visible');
   });
 
   modalWindow.addEventListener('click', e => {
     const target = e.target;
+
     if (target === modalWindow || target.closest('.form__button-window') ||
       target.closest('.modal-wrapper')) {
       closeModal(modalWindow);
     }
+
+    if (target.closest('.form__button--lit-text')) {
+      inputHidden.click();
+    }
   });
 };
 
+<<<<<<< HEAD
 const addContactProducts = ({
   title,
   price,
@@ -123,6 +114,8 @@ const addContactProducts = ({
 };
 
 
+=======
+>>>>>>> 28d2b67184a164fcacd4f1a5b7a690038abb9e8a
 const formControl = (
     form,
     modalWindow,
@@ -136,11 +129,20 @@ const formControl = (
     const target = e.target;
     if (target === inputPrice ||
       target === inputCount ||
+<<<<<<< HEAD
       target === discontInput);
     finishSumProductSpan.textContent =
       Math.floor((
         `${(inputPrice.value * inputCount.value) *
         (1 - discontInput.value / 100)}` * 100) / 100);
+=======
+      target === discontInput) {
+      finishSumProductSpan.textContent =
+        Math.floor((
+          `${(inputPrice.value * inputCount.value) *
+          (1 - discontInput.value / 100)}` * 100) / 100);
+    }
+>>>>>>> 28d2b67184a164fcacd4f1a5b7a690038abb9e8a
   });
 
   form.addEventListener('submit', e => {
@@ -155,7 +157,11 @@ const formControl = (
         form,
         modalWindow,
         totalSumAllSpan,
+<<<<<<< HEAD
         finishSumProductSpan);
+=======
+        errorCloseBtn);
+>>>>>>> 28d2b67184a164fcacd4f1a5b7a690038abb9e8a
   });
 };
 
@@ -163,5 +169,4 @@ export default {
   discontControl,
   modalControl,
   formControl,
-  btnImg,
 };

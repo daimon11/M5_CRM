@@ -1,4 +1,4 @@
-const totalSumTable = () => {
+export const totalSumTable = () => {
   const sums = document.querySelectorAll('.finish-sum');
   let result = 0;
   for (let i = 0; i < sums.length; i++) {
