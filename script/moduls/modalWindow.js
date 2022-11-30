@@ -50,72 +50,6 @@ const modalControl = (addProductBtn, modalWindow, inputHidden) => {
   });
 };
 
-<<<<<<< HEAD
-const addContactProducts = ({
-  title,
-  price,
-  description,
-  category,
-  discont = false,
-  count,
-  units,
-  images,
-},
-  modalError,
-  form,
-  modalWindow,
-  totalSumAllSpan,
-  finishSumProductSpan) => {
-  const contact = {
-    'title': `${title}`,
-    'price': +`${price}`,
-    'description': `${description}`,
-    'category': `${category}`,
-    'discont': `${discont}`,
-    'count': +`${count}`,
-    'units': `${units}`,
-    'images': `${images}`,
-  };
-  if (contact.images === 'undefined') {
-    delete contact.images;
-  }
-
-  httpRequest(`http://localhost:3000/api/goods`, {
-    method: 'POST',
-    body: {
-      'title': `${contact.title}`,
-      'price': +`${contact.price}`,
-      'description': `${contact.description}`,
-      'category': `${contact.category}`,
-      'discont': `${contact.discont}`,
-      'count': +`${contact.count}`,
-      'units': `${contact.units}`,
-      'image': `${contact.image}`,
-    },
-    callback(err, data) {
-      if (err) {
-        console.warn(err, data);
-        modalError.classList.remove('visually-hidden');
-        errorCloseBtn.addEventListener('click', () => {
-          modalError.classList.add('visually-hidden');
-        });
-      } else {
-        form.reset();
-        closeModal(modalWindow);
-        finishSumProductSpan.textContent = 0;
-        totalSumAllSpan.textContent = totalSumTable();
-        productsRender(`http://localhost:3000/api/goods`);
-      }
-    },
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-};
-
-
-=======
->>>>>>> 28d2b67184a164fcacd4f1a5b7a690038abb9e8a
 const formControl = (
     form,
     modalWindow,
@@ -129,20 +63,12 @@ const formControl = (
     const target = e.target;
     if (target === inputPrice ||
       target === inputCount ||
-<<<<<<< HEAD
-      target === discontInput);
-    finishSumProductSpan.textContent =
-      Math.floor((
-        `${(inputPrice.value * inputCount.value) *
-        (1 - discontInput.value / 100)}` * 100) / 100);
-=======
       target === discontInput) {
       finishSumProductSpan.textContent =
         Math.floor((
           `${(inputPrice.value * inputCount.value) *
           (1 - discontInput.value / 100)}` * 100) / 100);
     }
->>>>>>> 28d2b67184a164fcacd4f1a5b7a690038abb9e8a
   });
 
   form.addEventListener('submit', e => {
@@ -157,11 +83,8 @@ const formControl = (
         form,
         modalWindow,
         totalSumAllSpan,
-<<<<<<< HEAD
+        errorCloseBtn,
         finishSumProductSpan);
-=======
-        errorCloseBtn);
->>>>>>> 28d2b67184a164fcacd4f1a5b7a690038abb9e8a
   });
 };
 

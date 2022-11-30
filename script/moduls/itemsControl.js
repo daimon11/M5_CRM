@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-import { httpRequestDel } from './httpRequest.js';
-=======
 import { httpRequest, httpRequestDel, productsRender } from './httpRequest.js';
-
 import { totalSumTable } from './renderAndCreate.js';
 import { closeModal } from './modalWindow.js';
->>>>>>> 28d2b67184a164fcacd4f1a5b7a690038abb9e8a
 
 export const addContactProducts = ({
   title,
@@ -16,7 +11,12 @@ export const addContactProducts = ({
   count,
   units,
   images,
-}, modalError, form, modalWindow, totalSumAllSpan, errorCloseBtn) => {
+}, modalError,
+  form,
+  modalWindow,
+  totalSumAllSpan,
+  errorCloseBtn,
+  finishSumProductSpan) => {
   const contact = {
     'title': `${title}`,
     'price': +`${price}`,
@@ -52,6 +52,7 @@ export const addContactProducts = ({
         });
       } else {
         form.reset();
+        finishSumProductSpan.textContent = 0;
         closeModal(modalWindow);
         totalSumAllSpan.textContent = totalSumTable();
         productsRender(`http://localhost:3000/api/goods`);
