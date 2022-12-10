@@ -1,73 +1,73 @@
 import { addContactProducts } from './itemsControl.js';
 
-const modalError = document.querySelector('.modal-error');
-const errorCloseBtn = document.querySelector('.error__close-btn');
-
-export const closeModal = (modalWindow) => {
-  modalWindow.classList.remove('modal_visible');
+export const sumOfGood = (price, count, discont = 0) => {
+  console.log('sumOfGood', price, count, discont);
+  const sum = Math.floor((
+    `${(price * count) *
+    (1 - discont / 100)}` * 100) / 100);
+  return +sum;
 };
 
-const discontControl = (modalWindow, discontInput, checkbox) => {
-  modalWindow.addEventListener('click', e => {
+export const modalControl = (
+  priceProduct,
+  price,
+  count,
+  discont,
+  checkboxInput,
+  modal,
+  buttonWindow,
+) => {
+  modal.addEventListener('click', e => {
     const target = e.target;
+
     switch (true) {
       case (target.closest('.form__checkbox') &&
-        discontInput.hasAttribute('disabled')):
-        discontInput.removeAttribute('disabled');
-        checkbox.name = 'discont-on';
-        discontInput.style.background = '#F2F0F9';
+        discont.hasAttribute('disabled')):
+        discont.removeAttribute('disabled');
+        checkboxInput.name = 'discont-on';
+        discont.style.background = '#F2F0F9';
         break;
 
       case (target.closest('.form__checkbox') &&
-        checkbox.name === 'discont-on'):
-        discontInput.setAttribute('disabled', 'disabled');
-        checkbox.name = 'discont-off';
-        discontInput.value = '';
-        discontInput.style.background = '#EEEEEE';
+        checkboxInput.name === 'discont-on'):
+        discont.setAttribute('disabled', 'disabled');
+        checkboxInput.name = 'discont-off';
+        discont.value = null;
+        discont.style.background = '#EEEEEE';
+        priceProduct.textContent =
+        sumOfGood(price.value, count.value, 0);
         break;
+
+      case (target === modal || target === buttonWindow ||
+        target.closest('.modal-wrapper')):
+        modal.remove();
+        break;
+
       default:
         break;
     }
   });
 };
 
-const modalControl = (addProductBtn, modalWindow, inputHidden) => {
-  addProductBtn.addEventListener('click', () => {
-    modalWindow.classList.add('modal_visible');
-  });
 
-  modalWindow.addEventListener('click', e => {
-    const target = e.target;
-
-    if (target === modalWindow || target.closest('.form__button-window') ||
-      target.closest('.modal-wrapper')) {
-      closeModal(modalWindow);
-    }
-
-    if (target.closest('.form__button--lit-text')) {
-      inputHidden.click();
-    }
-  });
-};
-
-const formControl = (
-    form,
-    modalWindow,
-    totalSumAllSpan,
-    finishSumProductSpan,
-    inputPrice,
-    inputCount,
-    discontInput,
+export const formControl = (
+  id = null,
+  modal,
+  errWindow,
+  form,
+  price,
+  count,
+  discont,
+  priceProduct,
 ) => {
+  console.log(id);
   form.addEventListener('change', e => {
     const target = e.target;
-    if (target === inputPrice ||
-      target === inputCount ||
-      target === discontInput) {
-      finishSumProductSpan.textContent =
-        Math.floor((
-          `${(inputPrice.value * inputCount.value) *
-          (1 - discontInput.value / 100)}` * 100) / 100);
+    if (target === price ||
+      target === count ||
+      target === discont) {
+      priceProduct.textContent =
+        sumOfGood(price.value, count.value, discont.value);
     }
   });
 
@@ -78,18 +78,12 @@ const formControl = (
 
     console.log('newContact', newContact);
     addContactProducts(
-        newContact,
-        modalError,
-        form,
-        modalWindow,
-        totalSumAllSpan,
-        errorCloseBtn,
-        finishSumProductSpan);
+      id,
+      newContact,
+      modal,
+      errWindow,
+      form,
+      priceProduct,
+    );
   });
-};
-
-export default {
-  discontControl,
-  modalControl,
-  formControl,
 };

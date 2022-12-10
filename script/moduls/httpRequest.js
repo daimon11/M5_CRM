@@ -1,8 +1,4 @@
-import renderAndCreate from './renderAndCreate.js';
-
-const {
-  renderGoods,
-} = renderAndCreate;
+import { renderGoods, showModal } from './renderAndCreate.js';
 
 export const httpRequest = (url, {
   method = 'get',
@@ -46,6 +42,13 @@ export const productsRender = (url) => {
   httpRequest(url, {
     methed: 'get',
     callback: renderGoods,
+  });
+};
+
+export const changeProductRender = (url) => {
+  httpRequest(url, {
+    methed: 'get',
+    callback: showModal,
   });
 };
 

@@ -1,22 +1,26 @@
 import { httpRequest, httpRequestDel, productsRender } from './httpRequest.js';
 import { totalSumTable } from './renderAndCreate.js';
-import { closeModal } from './modalWindow.js';
+// import { closeModal } from './modalWindow.js';
 
-export const addContactProducts = ({
-  title,
-  price,
-  description,
-  category,
-  discont = false,
-  count,
-  units,
-  images,
-}, modalError,
+export const addContactProducts = (
+  id,
+  {
+    title,
+    price,
+    description,
+    category,
+    discont = false,
+    count,
+    units,
+    images,
+  },
+  modal,
+  modalError,
   form,
-  modalWindow,
-  totalSumAllSpan,
-  errorCloseBtn,
-  finishSumProductSpan) => {
+  finishSumProductSpan,
+  checkbox,
+  discontInput,
+) => {
   const contact = {
     'title': `${title}`,
     'price': +`${price}`,
@@ -30,38 +34,61 @@ export const addContactProducts = ({
   if (contact.images === 'undefined') {
     delete contact.images;
   }
-
-  httpRequest(`http://localhost:3000/api/goods`, {
-    method: 'POST',
-    body: {
-      'title': `${contact.title}`,
-      'price': +`${contact.price}`,
-      'description': `${contact.description}`,
-      'category': `${contact.category}`,
-      'discont': `${contact.discont}`,
-      'count': +`${contact.count}`,
-      'units': `${contact.units}`,
-      'image': `${contact.image}`,
-    },
-    callback(err, data) {
-      if (err) {
-        console.warn(err, data);
-        modalError.classList.remove('visually-hidden');
-        errorCloseBtn.addEventListener('click', () => {
-          modalError.classList.add('visually-hidden');
-        });
-      } else {
-        form.reset();
-        finishSumProductSpan.textContent = 0;
-        closeModal(modalWindow);
-        totalSumAllSpan.textContent = totalSumTable();
-        productsRender(`http://localhost:3000/api/goods`);
-      }
-    },
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  if (id) {
+    console.log('перезаписать');
+    httpRequest(`http://localhost:3000/api/goods/${id}`, {
+      method: 'POST',
+      body: {
+        'title': `${contact.title}`,
+        'price': +`${contact.price}`,
+        'description': `${contact.description}`,
+        'category': `${contact.category}`,
+        'discont': `${contact.discont}`,
+        'count': +`${contact.count}`,
+        'units': `${contact.units}`,
+        'image': `${contact.image}`,
+      },
+    });
+    form.reset();
+    finishSumProductSpan.textContent = 0;
+    modal.remove();
+    document.querySelector('.crm__bold-text').textContent = totalSumTable();
+    productsRender(`http://localhost:3000/api/goods`);
+  } else {
+    console.log('добавить');
+    httpRequest(`http://localhost:3000/api/goods`, {
+      method: 'POST',
+      body: {
+        'title': `${contact.title}`,
+        'price': +`${contact.price}`,
+        'description': `${contact.description}`,
+        'category': `${contact.category}`,
+        'discont': `${contact.discont}`,
+        'count': +`${contact.count}`,
+        'units': `${contact.units}`,
+        'image': `${contact.image}`,
+      },
+      callback(err, data) {
+        if (err) {
+          const btnClose = modalError.querySelector('.error__close-btn');
+          console.warn(err, data);
+          modalError.classList.remove('visually-hidden');
+          btnClose.addEventListener('click', () => {
+            modalError.classList.add('visually-hidden');
+          });
+        } else {
+          form.reset();
+          finishSumProductSpan.textContent = 0;
+          modal.remove();
+          document.querySelector('.crm__bold-text').textContent = totalSumTable();
+          productsRender(`http://localhost:3000/api/goods`);
+        }
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
 };
 
 export const deleteItemInTable = (table) => {
