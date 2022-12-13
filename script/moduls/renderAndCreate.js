@@ -254,6 +254,12 @@ export const showModal = async (err, data) => {
     labelDiscount.elem,
     formFooter.querySelector('.form__bold-text'),
   );
+
+  if (err) {
+    formTitle.textContent = err;
+    formTitle.style.color = 'red';
+    return;
+  }
 };
 
 
