@@ -9,7 +9,7 @@ export const addContactProducts = (
     price,
     description,
     category,
-    discont = false,
+    discount = 0,
     count,
     units,
     images,
@@ -18,15 +18,13 @@ export const addContactProducts = (
   modalError,
   form,
   finishSumProductSpan,
-  checkbox,
-  discontInput,
 ) => {
   const contact = {
     'title': `${title}`,
     'price': +`${price}`,
     'description': `${description}`,
     'category': `${category}`,
-    'discont': `${discont}`,
+    'discount': `${discount}`,
     'count': +`${count}`,
     'units': `${units}`,
     'images': `${images}`,
@@ -36,34 +34,14 @@ export const addContactProducts = (
   }
   if (id) {
     console.log('перезаписать');
-    httpRequest(`http://localhost:3000/api/goods/${id}`, {
-      method: 'POST',
+    httpRequest(`https://quickest-cubic-pyroraptor.glitch.me/api/goods/${id}`, {
+      method: 'PATCH',
       body: {
         'title': `${contact.title}`,
         'price': +`${contact.price}`,
         'description': `${contact.description}`,
         'category': `${contact.category}`,
-        'discont': `${contact.discont}`,
-        'count': +`${contact.count}`,
-        'units': `${contact.units}`,
-        'image': `${contact.image}`,
-      },
-    });
-    form.reset();
-    finishSumProductSpan.textContent = 0;
-    modal.remove();
-    document.querySelector('.crm__bold-text').textContent = totalSumTable();
-    productsRender(`http://localhost:3000/api/goods`);
-  } else {
-    console.log('добавить');
-    httpRequest(`http://localhost:3000/api/goods`, {
-      method: 'POST',
-      body: {
-        'title': `${contact.title}`,
-        'price': +`${contact.price}`,
-        'description': `${contact.description}`,
-        'category': `${contact.category}`,
-        'discont': `${contact.discont}`,
+        'discount': `${contact.discount}`,
         'count': +`${contact.count}`,
         'units': `${contact.units}`,
         'image': `${contact.image}`,
@@ -81,7 +59,41 @@ export const addContactProducts = (
           finishSumProductSpan.textContent = 0;
           modal.remove();
           document.querySelector('.crm__bold-text').textContent = totalSumTable();
-          productsRender(`http://localhost:3000/api/goods`);
+          productsRender(`https://quickest-cubic-pyroraptor.glitch.me/api/goods`);
+        }
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  } else {
+    console.log('добавить');
+    httpRequest(`https://quickest-cubic-pyroraptor.glitch.me/api/goods`, {
+      method: 'POST',
+      body: {
+        'title': `${contact.title}`,
+        'price': +`${contact.price}`,
+        'description': `${contact.description}`,
+        'category': `${contact.category}`,
+        'discount': `${contact.discount}`,
+        'count': +`${contact.count}`,
+        'units': `${contact.units}`,
+        'image': `${contact.image}`,
+      },
+      callback(err, data) {
+        if (err) {
+          const btnClose = modalError.querySelector('.error__close-btn');
+          console.warn(err, data);
+          modalError.classList.remove('visually-hidden');
+          btnClose.addEventListener('click', () => {
+            modalError.classList.add('visually-hidden');
+          });
+        } else {
+          form.reset();
+          finishSumProductSpan.textContent = 0;
+          modal.remove();
+          document.querySelector('.crm__bold-text').textContent = totalSumTable();
+          productsRender(`https://quickest-cubic-pyroraptor.glitch.me/api/goods`);
         }
       },
       headers: {
@@ -97,7 +109,7 @@ export const deleteItemInTable = (table) => {
     if (target.closest('.img-del-btn')) {
       const id = target.closest('.crm__table-row').id;
 
-      httpRequestDel(`http://localhost:3000/api/goods/${id}`);
+      httpRequestDel(`https://quickest-cubic-pyroraptor.glitch.me/api/goods/${id}`);
     }
   });
 

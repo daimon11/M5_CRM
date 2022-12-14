@@ -59,7 +59,7 @@ export const httpRequestDel = (url) => {
   xhr.addEventListener('load', () => {
     if (xhr.status < 204 || xhr.readyState === 4) {
       console.log('Good request');
-      productsRender(`http://localhost:3000/api/goods`);
+      productsRender(`https://quickest-cubic-pyroraptor.glitch.me/api/goods`);
     } else {
       throw new Error('Bad request');
     }

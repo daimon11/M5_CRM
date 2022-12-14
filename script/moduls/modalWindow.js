@@ -1,54 +1,11 @@
 import { addContactProducts } from './itemsControl.js';
 
 export const sumOfGood = (price, count, discont = 0) => {
-  console.log('sumOfGood', price, count, discont);
   const sum = Math.floor((
     `${(price * count) *
     (1 - discont / 100)}` * 100) / 100);
   return +sum;
 };
-
-export const modalControl = (
-  priceProduct,
-  price,
-  count,
-  discont,
-  checkboxInput,
-  modal,
-  buttonWindow,
-) => {
-  modal.addEventListener('click', e => {
-    const target = e.target;
-
-    switch (true) {
-      case (target.closest('.form__checkbox') &&
-        discont.hasAttribute('disabled')):
-        discont.removeAttribute('disabled');
-        checkboxInput.name = 'discont-on';
-        discont.style.background = '#F2F0F9';
-        break;
-
-      case (target.closest('.form__checkbox') &&
-        checkboxInput.name === 'discont-on'):
-        discont.setAttribute('disabled', 'disabled');
-        checkboxInput.name = 'discont-off';
-        discont.value = null;
-        discont.style.background = '#EEEEEE';
-        priceProduct.textContent =
-        sumOfGood(price.value, count.value, 0);
-        break;
-
-      case (target === modal || target === buttonWindow ||
-        target.closest('.modal-wrapper')):
-        modal.remove();
-        break;
-
-      default:
-        break;
-    }
-  });
-};
-
 
 export const formControl = (
   id = null,
@@ -57,17 +14,16 @@ export const formControl = (
   form,
   price,
   count,
-  discont,
+  discount,
   priceProduct,
 ) => {
-  console.log(id);
   form.addEventListener('change', e => {
     const target = e.target;
     if (target === price ||
       target === count ||
-      target === discont) {
+      target === discount) {
       priceProduct.textContent =
-        sumOfGood(price.value, count.value, discont.value);
+        sumOfGood(price.value, count.value, discount.value);
     }
   });
 
@@ -85,5 +41,45 @@ export const formControl = (
       form,
       priceProduct,
     );
+  });
+};
+
+export const modalControl = (
+  priceProduct,
+  price,
+  count,
+  discont,
+  checkboxInput,
+  modal,
+  buttonWindow,
+) => {
+  modal.addEventListener('click', e => {
+    const target = e.target;
+    switch (true) {
+      case (target.closest('.form__checkbox') &&
+        discont.hasAttribute('disabled')):
+        discont.removeAttribute('disabled');
+        checkboxInput.dataset.status = 'discont-on';
+        discont.style.background = '#F2F0F9';
+        break;
+
+      case (target.closest('.form__checkbox') &&
+        checkboxInput.dataset.status === 'discont-on'):
+        discont.setAttribute('disabled', 'disabled');
+        checkboxInput.dataset.status = 'discont-off';
+        discont.value = null;
+        discont.style.background = '#EEEEEE';
+        priceProduct.textContent =
+          sumOfGood(price.value, count.value, 0);
+        break;
+
+      case (target === modal || target === buttonWindow ||
+        target.closest('.modal-wrapper')):
+        modal.remove();
+        break;
+
+      default:
+        break;
+    }
   });
 };

@@ -61,7 +61,7 @@ const createLabel = (
   return label;
 };
 
-export const showModal = async (err, data) => {
+export const showModal = async (err, data, str = 'Изменить товар') => {
   await loadStyle('style/add-product/add-product.css');
   console.log('showModal', data);
   const modal = document.createElement('div');
@@ -80,7 +80,7 @@ export const showModal = async (err, data) => {
   titleWrapper.classList.add('form__title-wrapper');
   const formTitle = document.createElement('h2');
   formTitle.classList.add('form__title');
-  formTitle.textContent = 'Добавить товар';
+  formTitle.textContent = str;
   titleWrapper.append(formTitle);
 
   const buttonWindow = document.createElement('button');
@@ -126,21 +126,21 @@ export const showModal = async (err, data) => {
   const labelDiscount = createLabel({
     element: 'input',
     positionLabel: null,
-    name: 'units',
+    name: 'discount',
     type: 'number',
     textContentSpan: 'Дисконт',
   });
   labelDiscount.elem.classList.add('form__text-input--type_discont');
   labelDiscount.elem.setAttribute('id', 'discont');
-  if (data.discount) {
+  if (data.discount && data.discount > 0) {
     console.log('discont-on');
     labelDiscount.elem.value = data.discount;
-    checkboxInput.setAttribute('name', 'discont-on');
+    checkboxInput.dataset.status = 'discont-on';
     checkboxInput.checked = true;
   } else {
     console.log('discont-off');
     labelDiscount.elem.setAttribute('disabled', 'disabled');
-    checkboxInput.setAttribute('name', 'discont-off');
+    checkboxInput.dataset.status = 'discont-off';
   }
   checkboxWrapper.append(checkboxLabel, labelDiscount);
 
@@ -179,8 +179,8 @@ export const showModal = async (err, data) => {
     <button 
       class="form__button--big-text form__button" 
       type="submit" 
-      value="Добавить товар"
-      form="my-form">Добавить товар</button>
+      value="${str}"
+      form="my-form">${str}</button>
   `;
 
 
@@ -270,11 +270,11 @@ const createRow = ({
   units,
   price,
   count,
-  discont = 0,
+  discount = 0,
   image,
 }) => {
-  if (discont === 'false') {
-    discont = false;
+  if (discount === 'false') {
+    discount = false;
   }
 
   const row = document.createElement('tr');
@@ -288,7 +288,7 @@ const createRow = ({
   <td class="crm__table-td">${count}</td>
   <td class="crm__table-td crm__table-td--pos_right">${price}</td>
   <td class="crm__table-td crm__table-td--pos_right finish-sum">
-    ${(price * count) * (1 - discont / 100)}
+    ${Math.round((price * count) * (1 - discount / 100))}
   </td>
   <td class="crm__table-td crm__table-td--flex">
     <button 

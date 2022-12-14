@@ -1,9 +1,9 @@
-const URL = 'http://localhost:3000/api/goods';
+const URL = 'https://quickest-cubic-pyroraptor.glitch.me/api/goods';
 
 // import modalWindow from './moduls/modalWindow.js';
 import renderAndCreate from './moduls/renderAndCreate.js';
-import {deleteItemInTable} from './moduls/itemsControl.js';
-import {changeProductRender, productsRender} from './moduls/httpRequest.js';
+import { deleteItemInTable } from './moduls/itemsControl.js';
+import { changeProductRender, productsRender } from './moduls/httpRequest.js';
 
 const {
   totalSumTable,
@@ -29,10 +29,11 @@ const init = () => {
       count: null,
       price: null,
       discount: null,
-    });
+    },
+    'Добавить товар');
   });
 
-  table.addEventListener('click', async ({target}) => {
+  table.addEventListener('click', async ({ target }) => {
     if (target.closest('.correct-product')) {
       const id = target.closest('.crm__table-row').id;
       changeProductRender(`${URL}/${id}`);
