@@ -31,9 +31,22 @@ const loadStyle = (url) => {
   return stylePromise;
 };
 
+export const createImgProduct = (src) => {
+  const imgWrapper = document.createElement('div');
+  imgWrapper.classList.add('form__img-display');
+
+  const imgProduct = document.createElement('img');
+  imgProduct.classList.add('form__img-product');
+  imgProduct.src = src;
+
+  imgWrapper.append(imgProduct);
+
+  return imgWrapper;
+};
+
 const createLabel = (
-    params,
-    data = {},
+  params,
+  data = {},
 ) => {
   const label = document.createElement('label');
   label.classList.add('form__label');
@@ -188,22 +201,30 @@ export const showModal = async (err, data, str = 'Изменить товар') 
   labelImg.classList.add('form__label-img');
   labelImg.innerHTML = `
   <input class="form__text-input form__text-input--hidden" 
-    type="file" accept="image/*" name="file">
+    type="file" accept="image/*" name="image">
   <span class="form__button--lit-text form__button" 
     type="button" 
     value="Добавить товар"
     form="my-form">Добавить изображение</span>
   `;
 
+  if (data.image) {
+    formBox.append(createImgProduct('https://funik.ru/wp-content/uploads/2022/04/a7524b9c86e9408972af.jpg'));
+  }
+
+  const imgErrText = document.createElement('span');
+  imgErrText.classList.add('form__img-error');
+
   formBox.append(
-      labelName,
-      labelCategory,
-      labelUnits,
-      checkboxWrapper,
-      labelDescription,
-      labelCount,
-      labelPrice,
-      labelImg,
+    labelName,
+    labelCategory,
+    labelUnits,
+    checkboxWrapper,
+    labelDescription,
+    labelCount,
+    labelPrice,
+    labelImg,
+    imgErrText,
   );
 
   container.append(titleWrapper, buttonWindow, formBox, formFooter);
@@ -243,7 +264,10 @@ export const showModal = async (err, data, str = 'Изменить товар') 
     checkboxInput,
     modal,
     buttonWindow,
+    labelImg,
+    imgErrText,
   );
+
   formControl(
     data.id,
     modal,
@@ -297,7 +321,8 @@ const createRow = ({
       `<img
         class="img-product"
         src="./style/crm/icons/image-yes.svg"
-        data-pic="http://www.mobileui.cn/blog/uploads/2012/07/161029fNL.jpg"
+        data-base64="${image}"
+        data-pic="https://static.toiimg.com/photo/25490075.cms"
         alt="Изображение товара есть"` :
       `<img
           class="no-img-product"
@@ -345,8 +370,8 @@ export const renderGoods = async (err, arr) => {
 
 export default {
   createRow,
-  // renderGoods,
   totalSumTable,
   showModal,
+  createImgProduct,
 };
 

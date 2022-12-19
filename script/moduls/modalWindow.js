@@ -1,11 +1,24 @@
 import { addContactProducts } from './itemsControl.js';
 
+import { createImgProduct } from './renderAndCreate.js';
+
 export const sumOfGood = (price, count, discont = 0) => {
   const sum = Math.floor((
     `${(price * count) *
     (1 - discont / 100)}` * 100) / 100);
   return +sum;
 };
+
+const toBase64 = file => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.addEventListener('loadend', () => {
+    resolve(reader.result);
+  });
+  reader.addEventListener('error', err => {
+    reject(err);
+  });
+  reader.readAsDataURL(file);
+});
 
 export const formControl = (
   id = null,
@@ -27,11 +40,12 @@ export const formControl = (
     }
   });
 
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const newContact = Object.fromEntries(formData);
-
+    newContact.image = await toBase64(newContact.image);
+    console.log(newContact.image);
     console.log('newContact', newContact);
     addContactProducts(
       id,
@@ -52,7 +66,11 @@ export const modalControl = (
   checkboxInput,
   modal,
   buttonWindow,
+  labelImg,
+  imgErrText,
 ) => {
+  const btnAddImg = labelImg.querySelector('.form__text-input');
+
   modal.addEventListener('click', e => {
     const target = e.target;
     switch (true) {
@@ -80,6 +98,30 @@ export const modalControl = (
 
       default:
         break;
+    }
+  });
+
+  labelImg.addEventListener('change', e => {
+    const target = e.target;
+    const formBox = modal.querySelector('.form__box');
+    if (target === btnAddImg) {
+      if (btnAddImg.files.length > 0 && btnAddImg.files[0].size < 1000000) {
+        imgErrText.textContent = '';
+        const src = URL.createObjectURL(btnAddImg.files[0]);
+        if (labelImg.querySelector('.form__img-display')) {
+          labelImg.querySelector('.form__img-product').src = src;
+        } else {
+          formBox.append(createImgProduct(src));
+          labelImg.querySelector('.form__button').textContent = 'Изменить изображение';
+        }
+      } else {
+        imgErrText.textContent = 'Изображение не должно превышать размер 1 Мб';
+        formBox.append(imgErrText);
+        if (document.querySelector('.form__img-display')) {
+          const imgBlock = document.querySelector('.form__img-display');
+          imgBlock.remove();
+        }
+      }
     }
   });
 };

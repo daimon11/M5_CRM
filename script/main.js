@@ -1,6 +1,5 @@
 const URL = 'https://quickest-cubic-pyroraptor.glitch.me/api/goods';
 
-// import modalWindow from './moduls/modalWindow.js';
 import renderAndCreate from './moduls/renderAndCreate.js';
 import { deleteItemInTable } from './moduls/itemsControl.js';
 import { changeProductRender, productsRender } from './moduls/httpRequest.js';
@@ -37,7 +36,6 @@ const init = () => {
     if (target.closest('.correct-product')) {
       const id = target.closest('.crm__table-row').id;
       changeProductRender(`${URL}/${id}`);
-      console.log(`${URL}/${id}`);
     }
   });
 
