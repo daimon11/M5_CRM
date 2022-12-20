@@ -209,7 +209,8 @@ export const showModal = async (err, data, str = 'Изменить товар') 
   `;
 
   if (data.image) {
-    formBox.append(createImgProduct('https://funik.ru/wp-content/uploads/2022/04/a7524b9c86e9408972af.jpg'));
+    formBox.append(createImgProduct(`https://quickest-cubic-pyroraptor.glitch.me/${data.image}`));
+    labelImg.querySelector('.form__button--lit-text').textContent = 'Изменить изображение';
   }
 
   const imgErrText = document.createElement('span');
@@ -322,7 +323,7 @@ const createRow = ({
         class="img-product"
         src="./style/crm/icons/image-yes.svg"
         data-base64="${image}"
-        data-pic="https://static.toiimg.com/photo/25490075.cms"
+        data-pic="https://quickest-cubic-pyroraptor.glitch.me/${image}"
         alt="Изображение товара есть"` :
       `<img
           class="no-img-product"
