@@ -1,95 +1,178 @@
 import { addContactProducts } from './itemsControl.js';
 
-const modalError = document.querySelector('.modal-error');
-const errorCloseBtn = document.querySelector('.error__close-btn');
+import { createImgProduct } from './renderAndCreate.js';
 
-export const closeModal = (modalWindow) => {
-  modalWindow.classList.remove('modal_visible');
+export const sumOfGood = (price, count, discont = 0) => {
+  const sum = Math.floor((
+    `${(price * count) *
+    (1 - discont / 100)}` * 100) / 100);
+  return +sum;
 };
 
-const discontControl = (modalWindow, discontInput, checkbox) => {
-  modalWindow.addEventListener('click', e => {
+const toBase64 = file => new Promise((resolve, reject) => {
+  // console.log('toBase64');
+  console.log('toBase64', file);
+  const reader = new FileReader();
+  reader.addEventListener('loadend', () => {
+    resolve(reader.result);
+  });
+  reader.addEventListener('error', err => {
+    reject(err);
+  });
+  reader.readAsDataURL(file);
+});
+
+export const formControl = (
+  id = null,
+  modal,
+  errWindow,
+  form,
+  name,
+  category,
+  description,
+  units,
+  price,
+  count,
+  discount,
+  priceProduct,
+  image,
+  rows,
+) => {
+  console.log('formControl');
+  console.log('id', id);
+  console.log('formControl image', image);
+  form.addEventListener('input', e => {
     const target = e.target;
     switch (true) {
-      case (target.closest('.form__checkbox') &&
-        discontInput.hasAttribute('disabled')):
-        discontInput.removeAttribute('disabled');
-        checkbox.name = 'discont-on';
-        discontInput.style.background = '#F2F0F9';
-        break;
+      case (target === name ||
+        target === category ||
+        target === description):
+        target.value = target.value.replace(/[^а-яё-\s]/gi, '');
 
-      case (target.closest('.form__checkbox') &&
-        checkbox.name === 'discont-on'):
-        discontInput.setAttribute('disabled', 'disabled');
-        checkbox.name = 'discont-off';
-        discontInput.value = '';
-        discontInput.style.background = '#EEEEEE';
-        break;
-      default:
-        break;
-    }
-  });
-};
+      case (target === units):
+        units.value = units.value.replace(/[^а-яё]/gi, '');
 
-const modalControl = (addProductBtn, modalWindow, inputHidden) => {
-  addProductBtn.addEventListener('click', () => {
-    modalWindow.classList.add('modal_visible');
-  });
-
-  modalWindow.addEventListener('click', e => {
-    const target = e.target;
-
-    if (target === modalWindow || target.closest('.form__button-window') ||
-      target.closest('.modal-wrapper')) {
-      closeModal(modalWindow);
-    }
-
-    if (target.closest('.form__button--lit-text')) {
-      inputHidden.click();
-    }
-  });
-};
-
-const formControl = (
-    form,
-    modalWindow,
-    totalSumAllSpan,
-    finishSumProductSpan,
-    inputPrice,
-    inputCount,
-    discontInput,
-) => {
-  form.addEventListener('change', e => {
-    const target = e.target;
-    if (target === inputPrice ||
-      target === inputCount ||
-      target === discontInput) {
-      finishSumProductSpan.textContent =
-        Math.floor((
-          `${(inputPrice.value * inputCount.value) *
-          (1 - discontInput.value / 100)}` * 100) / 100);
+      case (target === price ||
+        target === count ||
+        target === discount):
+        priceProduct.textContent =
+          sumOfGood(price.value, count.value, discount.value);
     }
   });
 
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const newContact = Object.fromEntries(formData);
 
-    console.log('newContact', newContact);
+    if (newContact.image) {
+      switch (true) {
+        case (image === `image/${id}.jpg` &&
+          newContact.image.size === undefined ||
+          newContact.image.size === 0):
+          newContact.image = image;
+          break;
+        case (newContact.image !== undefined && newContact.image.size > 0):
+          newContact.image = await toBase64(newContact.image);
+          break;
+        default:
+          delete newContact.image;
+      }
+    }
+
+    console.log('formControl newContact', newContact);
+
     addContactProducts(
-        newContact,
-        modalError,
-        form,
-        modalWindow,
-        totalSumAllSpan,
-        errorCloseBtn,
-        finishSumProductSpan);
+      id,
+      newContact,
+      modal,
+      errWindow,
+      form,
+      priceProduct,
+      rows,
+    );
   });
 };
 
-export default {
-  discontControl,
-  modalControl,
-  formControl,
+export const modalControl = (
+  priceProduct,
+  price,
+  count,
+  discont,
+  checkboxInput,
+  modal,
+  buttonWindow,
+  labelImg,
+  imgErrText,
+) => {
+  console.log('modalControl labelImg', labelImg);
+  const btnAddImg = labelImg.querySelector('.form__text-input');
+
+  modal.addEventListener('click', e => {
+    const target = e.target;
+    switch (true) {
+      case (target.closest('.form__checkbox') &&
+        discont.hasAttribute('disabled')):
+        discont.removeAttribute('disabled');
+        checkboxInput.dataset.status = 'discont-on';
+        discont.style.background = '#F2F0F9';
+        break;
+
+      case (target.closest('.form__checkbox') &&
+        checkboxInput.dataset.status === 'discont-on'):
+        discont.setAttribute('disabled', 'disabled');
+        checkboxInput.dataset.status = 'discont-off';
+        discont.value = null;
+        discont.style.background = '#EEEEEE';
+        priceProduct.textContent =
+          sumOfGood(price.value, count.value, 0);
+        break;
+
+      case (target === modal || target === buttonWindow ||
+        target.closest('.modal-wrapper')):
+        modal.remove();
+        break;
+
+      default:
+        break;
+    }
+  });
+
+  labelImg.addEventListener('change', e => {
+    const imgBlock = document.querySelector('.form__img-display');
+    console.log('imgBlock', document.querySelector('.form__img-display'));
+
+
+    let src = URL.createObjectURL(btnAddImg.files[0]);
+    const target = e.target;
+    const formBox = modal.querySelector('.form__box');
+    console.log(target);
+    if (target === btnAddImg) {
+    console.log('imgBlock', document.querySelector('.form__img-display'));
+      if (btnAddImg.files.length > 0 && btnAddImg.files[0].size < 1000000) {
+        imgErrText.textContent = '';
+        if (!(labelImg.querySelector('.form__text-input').hasAttribute('name'))) {
+          labelImg.querySelector('.form__text-input').setAttribute('name', 'image');
+        }
+        if (labelImg.querySelector('.form__img-display')) {
+          labelImg.querySelector('.form__img-product').src = src;
+
+        } else {
+          if (imgBlock) {
+            imgBlock.remove();
+          }
+          formBox.append(createImgProduct(src));
+          labelImg.querySelector('.form__button').textContent = 'Изменить изображение';
+          console.log('imgBlock', document.querySelector('.form__img-display'));
+        }
+      } else {
+        imgErrText.textContent = 'Изображение не должно превышать размер 1 Мб';
+        formBox.append(imgErrText);
+        labelImg.querySelector('.form__text-input').removeAttribute('name');
+        if (imgBlock) {
+          imgBlock.remove();
+        }
+      }
+    }
+  });
 };

@@ -1,15 +1,13 @@
-import renderAndCreate from './renderAndCreate.js';
-
-const {
-  renderGoods,
-} = renderAndCreate;
+import { renderGoods, showModal } from './renderAndCreate.js';
 
 export const httpRequest = (url, {
   method = 'get',
   callback,
   body = {},
   headers,
+  rows,
 }) => {
+  console.log('httpRequest', {rows});
   try {
     const xhr = new XMLHttpRequest();
     xhr.open(method, url);
@@ -28,7 +26,8 @@ export const httpRequest = (url, {
 
       const data = JSON.parse(xhr.response);
       console.log('httpRequest data = ', data);
-      if (callback) callback(null, data);
+      console.log('httpRequest', rows);
+      if (callback) callback(null, data, rows);
     });
 
     xhr.addEventListener('error', () => {
@@ -42,21 +41,32 @@ export const httpRequest = (url, {
   }
 };
 
-export const productsRender = (url) => {
+export const productsRender = (url, rows) => {
+  console.log('productsRender', rows);
   httpRequest(url, {
     methed: 'get',
     callback: renderGoods,
+    rows: rows,
   });
 };
 
-export const httpRequestDel = (url) => {
+export const changeProductRender = (url, rows) => {
+  console.log('changeProductRender', rows);
+  httpRequest(url, {
+    methed: 'get',
+    callback: showModal,
+    'rows': rows,
+  });
+};
+
+export const httpRequestDel = (url, rows) => {
   const xhr = new XMLHttpRequest();
   xhr.open('DELETE', url);
 
   xhr.addEventListener('load', () => {
     if (xhr.status < 204 || xhr.readyState === 4) {
       console.log('Good request');
-      productsRender(`http://localhost:3000/api/goods`);
+      productsRender(`https://quickest-cubic-pyroraptor.glitch.me/api/goods`, rows);
     } else {
       throw new Error('Bad request');
     }
