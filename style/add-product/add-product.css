@@ -1,17 +1,9 @@
-.page {
-  position: relative;
-  text-transform: uppercase;
-  font-family: 'Inter', sans-serif;
-  color: #6E6893;
-  font-size: 12px;
-  line-height: 15px;
-  letter-spacing: 0.05em;
-}
-
 .modal {
-  display: none;
+  display: flex;
   position: fixed;
   padding-top: 100px;
+  color: #6E6893;
+  text-transform: uppercase;
   top: 0;
   width: 100%;
   height: 100%;
@@ -27,7 +19,7 @@
   background-color: #F2F0F9;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
   z-index: 2;
-  max-height: 605px;
+  height: fit-content;
 }
 
 .form__title-wrapper {
@@ -50,7 +42,7 @@
   left: 0;
 }
 
-.form__title-box {
+.form__title {
   line-height: 29px;
   font-size: 24px;
   font-weight: bold;
@@ -111,7 +103,8 @@
     "form__label_position_left label_description"
     "form__label_position_left label_right"
     "label_discont label_price"
-    ". button_img";
+    "img-err button_img"
+    "product-img product-img";
   gap: 12px 24px;
   background-color: white;
   border-radius: 8px;
@@ -149,6 +142,9 @@
 }
 
 .form__label-name {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
   padding-left: 11px;
   line-height: 15px;
   letter-spacing: 0.05em;
@@ -240,14 +236,24 @@
   border-radius: 6px;
   background-color: #6D5BD0;
   font-size: 16px;
+  line-height: 19px;
+  font-weight: 600;
   text-transform: uppercase;
   color: white;
   cursor: pointer;
 }
 
 .form__button--lit-text {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
   margin-top: 20px;
-  grid-area: button_img;
+  position: relative;
+  display: inline-block;
+}
+
+.form__finish-price {
+  text-transform: none;
 }
 
 .form__bold-text {
@@ -255,8 +261,20 @@
   font-size: 18px;
 }
 
-.modal_visible {
+.form__text-input--hidden {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  display: block;
+  width: 0;
+  height: 0;
+}
+
+.form__label-img {
+  position: relative;
   display: flex;
+  flex-wrap: wrap;
+  grid-area: button_img;
 }
 
 .border_active {
@@ -313,6 +331,32 @@
   width: 20px;
   height: 20px;
   border: none;
+}
+
+.form__img-error {
+  margin-top: 20px;
+  color: #D80101;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  grid-area: img-err;
+}
+
+.form__img-display {
+  width: 100%;
+  height: auto;
+  margin: 30px auto 0;
+  display: flex;
+  justify-content: center;
+  grid-area: product-img;
+}
+
+.form__img-product {
+  height: 200px;
 }
 
 @media (max-width: 690px) {

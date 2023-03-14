@@ -1,61 +1,35 @@
 import { httpRequest, httpRequestDel, productsRender } from './httpRequest.js';
+// import { toBase64 } from './modalWindow.js';
 import { totalSumTable } from './renderAndCreate.js';
-import { closeModal } from './modalWindow.js';
+// import { closeModal } from './modalWindow.js';
 
-export const addContactProducts = ({
-  title,
-  price,
-  description,
-  category,
-  discont = false,
-  count,
-  units,
-  images,
-}, modalError,
-  form,
-  modalWindow,
-  totalSumAllSpan,
-  errorCloseBtn,
-  finishSumProductSpan) => {
-  const contact = {
-    'title': `${title}`,
-    'price': +`${price}`,
-    'description': `${description}`,
-    'category': `${category}`,
-    'discont': `${discont}`,
-    'count': +`${count}`,
-    'units': `${units}`,
-    'images': `${images}`,
-  };
-  if (contact.images === 'undefined') {
-    delete contact.images;
-  }
-
-  httpRequest(`http://localhost:3000/api/goods`, {
-    method: 'POST',
+const dataProcessing = (url, method, contact, elements) => {
+  httpRequest(url, {
+    method: `${method}`,
     body: {
       'title': `${contact.title}`,
       'price': +`${contact.price}`,
       'description': `${contact.description}`,
       'category': `${contact.category}`,
-      'discont': `${contact.discont}`,
+      'discount': `${contact.discount}`,
       'count': +`${contact.count}`,
       'units': `${contact.units}`,
       'image': `${contact.image}`,
     },
     callback(err, data) {
       if (err) {
+        const btnClose = elements.error.querySelector('.error__close-btn');
         console.warn(err, data);
-        modalError.classList.remove('visually-hidden');
-        errorCloseBtn.addEventListener('click', () => {
-          modalError.classList.add('visually-hidden');
+        elements.error.classList.remove('visually-hidden');
+        btnClose.addEventListener('click', () => {
+          elements.error.classList.add('visually-hidden');
         });
       } else {
-        form.reset();
-        finishSumProductSpan.textContent = 0;
-        closeModal(modalWindow);
-        totalSumAllSpan.textContent = totalSumTable();
-        productsRender(`http://localhost:3000/api/goods`);
+        elements.formModal.reset();
+        elements.span.textContent = 0;
+        elements.modalWindow.remove();
+        document.querySelector('.crm__bold-text').textContent = totalSumTable();
+        productsRender(`https://quickest-cubic-pyroraptor.glitch.me/api/goods`);
       }
     },
     headers: {
@@ -64,13 +38,73 @@ export const addContactProducts = ({
   });
 };
 
+export const addContactProducts = (
+  id,
+  {
+    title,
+    price,
+    description,
+    category,
+    discount = 0,
+    count,
+    units,
+    image,
+  },
+  modal,
+  modalError,
+  form,
+  finishSumProductSpan,
+) => {
+  const contact = {
+    'title': `${title}`,
+    'price': +`${price}`,
+    'description': `${description}`,
+    'category': `${category}`,
+    'discount': `${discount}`,
+    'count': +`${count}`,
+    'units': `${units}`,
+    'image': `${image}`,
+  };
+
+  if (contact.image === 'undefined' || contact.image === 'data:') {
+    delete contact.image;
+  }
+
+
+  if (id) {
+    dataProcessing(
+      `https://quickest-cubic-pyroraptor.glitch.me/api/goods/${id}`,
+      'PATCH',
+      contact,
+      {
+        'error': modalError,
+        'formModal': form,
+        'span': finishSumProductSpan,
+        'modalWindow': modal,
+      },
+    );
+  } else {
+    dataProcessing(
+      `https://quickest-cubic-pyroraptor.glitch.me/api/goods`,
+      'POST',
+      contact,
+      {
+        'error': modalError,
+        'formModal': form,
+        'span': finishSumProductSpan,
+        'modalWindow': modal,
+      },
+    );
+  }
+};
+
 export const deleteItemInTable = (table) => {
   table.addEventListener('click', e => {
     const target = e.target;
     if (target.closest('.img-del-btn')) {
       const id = target.closest('.crm__table-row').id;
 
-      httpRequestDel(`http://localhost:3000/api/goods/${id}`);
+      httpRequestDel(`https://quickest-cubic-pyroraptor.glitch.me/api/goods/${id}`);
     }
   });
 
@@ -86,3 +120,4 @@ export const deleteItemInTable = (table) => {
     }
   });
 };
+

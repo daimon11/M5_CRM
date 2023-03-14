@@ -1,95 +1,146 @@
 import { addContactProducts } from './itemsControl.js';
 
-const modalError = document.querySelector('.modal-error');
-const errorCloseBtn = document.querySelector('.error__close-btn');
+import { createImgProduct } from './renderAndCreate.js';
 
-export const closeModal = (modalWindow) => {
-  modalWindow.classList.remove('modal_visible');
+export const sumOfGood = (price, count, discont = 0) => {
+  const sum = Math.floor((
+    `${(price * count) *
+    (1 - discont / 100)}` * 100) / 100);
+  return +sum;
 };
 
-const discontControl = (modalWindow, discontInput, checkbox) => {
-  modalWindow.addEventListener('click', e => {
+const toBase64 = file => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.addEventListener('loadend', () => {
+    resolve(reader.result);
+  });
+  reader.addEventListener('error', err => {
+    reject(err);
+  });
+  reader.readAsDataURL(file);
+});
+
+export const formControl = (
+  id = null,
+  modal,
+  errWindow,
+  form,
+  name,
+  category,
+  description,
+  units,
+  price,
+  count,
+  discount,
+  priceProduct,
+) => {
+
+  form.addEventListener('input', e => {
+    const target = e.target;
+    switch (true) {
+      case (target === name ||
+        target === category ||
+        target === description):
+        console.log(target);
+        target.value = target.value.replace(/[^а-яё\s]/gi, '');
+
+      case (target === units):
+        console.log(target);
+        units.value = units.value.replace(/[^а-яё]/gi, '');
+
+      case (target === price ||
+        target === count ||
+        target === discount):
+        priceProduct.textContent =
+          sumOfGood(price.value, count.value, discount.value);
+
+    }
+  });
+
+
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const newContact = Object.fromEntries(formData);
+    newContact.image = await toBase64(newContact.image);
+    console.log(newContact.image);
+    console.log('newContact', newContact);
+    addContactProducts(
+      id,
+      newContact,
+      modal,
+      errWindow,
+      form,
+      priceProduct,
+    );
+  });
+};
+
+export const modalControl = (
+  priceProduct,
+  price,
+  count,
+  discont,
+  checkboxInput,
+  modal,
+  buttonWindow,
+  labelImg,
+  imgErrText,
+) => {
+  const btnAddImg = labelImg.querySelector('.form__text-input');
+
+  modal.addEventListener('click', e => {
     const target = e.target;
     switch (true) {
       case (target.closest('.form__checkbox') &&
-        discontInput.hasAttribute('disabled')):
-        discontInput.removeAttribute('disabled');
-        checkbox.name = 'discont-on';
-        discontInput.style.background = '#F2F0F9';
+        discont.hasAttribute('disabled')):
+        discont.removeAttribute('disabled');
+        checkboxInput.dataset.status = 'discont-on';
+        discont.style.background = '#F2F0F9';
         break;
 
       case (target.closest('.form__checkbox') &&
-        checkbox.name === 'discont-on'):
-        discontInput.setAttribute('disabled', 'disabled');
-        checkbox.name = 'discont-off';
-        discontInput.value = '';
-        discontInput.style.background = '#EEEEEE';
+        checkboxInput.dataset.status === 'discont-on'):
+        discont.setAttribute('disabled', 'disabled');
+        checkboxInput.dataset.status = 'discont-off';
+        discont.value = null;
+        discont.style.background = '#EEEEEE';
+        priceProduct.textContent =
+          sumOfGood(price.value, count.value, 0);
         break;
+
+      case (target === modal || target === buttonWindow ||
+        target.closest('.modal-wrapper')):
+        modal.remove();
+        break;
+
       default:
         break;
     }
   });
-};
 
-const modalControl = (addProductBtn, modalWindow, inputHidden) => {
-  addProductBtn.addEventListener('click', () => {
-    modalWindow.classList.add('modal_visible');
-  });
-
-  modalWindow.addEventListener('click', e => {
+  labelImg.addEventListener('change', e => {
     const target = e.target;
-
-    if (target === modalWindow || target.closest('.form__button-window') ||
-      target.closest('.modal-wrapper')) {
-      closeModal(modalWindow);
-    }
-
-    if (target.closest('.form__button--lit-text')) {
-      inputHidden.click();
-    }
-  });
-};
-
-const formControl = (
-    form,
-    modalWindow,
-    totalSumAllSpan,
-    finishSumProductSpan,
-    inputPrice,
-    inputCount,
-    discontInput,
-) => {
-  form.addEventListener('change', e => {
-    const target = e.target;
-    if (target === inputPrice ||
-      target === inputCount ||
-      target === discontInput) {
-      finishSumProductSpan.textContent =
-        Math.floor((
-          `${(inputPrice.value * inputCount.value) *
-          (1 - discontInput.value / 100)}` * 100) / 100);
+    const formBox = modal.querySelector('.form__box');
+    if (target === btnAddImg) {
+      if (btnAddImg.files.length > 0 && btnAddImg.files[0].size < 1000000) {
+        imgErrText.textContent = '';
+        const src = URL.createObjectURL(btnAddImg.files[0]);
+        if (labelImg.querySelector('.form__img-display')) {
+          labelImg.querySelector('.form__img-product').src = src;
+        } else {
+          formBox.append(createImgProduct(src));
+          labelImg.querySelector('.form__button').textContent = 'Изменить изображение';
+        }
+      } else {
+        imgErrText.textContent = 'Изображение не должно превышать размер 1 Мб';
+        formBox.append(imgErrText);
+        if (document.querySelector('.form__img-display')) {
+          const imgBlock = document.querySelector('.form__img-display');
+          imgBlock.remove();
+        }
+      }
     }
   });
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const newContact = Object.fromEntries(formData);
-
-    console.log('newContact', newContact);
-    addContactProducts(
-        newContact,
-        modalError,
-        form,
-        modalWindow,
-        totalSumAllSpan,
-        errorCloseBtn,
-        finishSumProductSpan);
-  });
-};
-
-export default {
-  discontControl,
-  modalControl,
-  formControl,
 };

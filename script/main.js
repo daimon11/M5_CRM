@@ -1,52 +1,45 @@
-const URL = 'http://localhost:3000/api/goods';
+const URL = 'https://quickest-cubic-pyroraptor.glitch.me/api/goods';
 
-import modalWindow from './moduls/modalWindow.js';
 import renderAndCreate from './moduls/renderAndCreate.js';
-import {deleteItemInTable} from './moduls/itemsControl.js';
-import {productsRender} from './moduls/httpRequest.js';
-
-const {
-  discontControl,
-  modalControl,
-  formControl,
-} = modalWindow;
+import { deleteItemInTable } from './moduls/itemsControl.js';
+import { changeProductRender, productsRender } from './moduls/httpRequest.js';
 
 const {
   totalSumTable,
+  showModal,
 } = renderAndCreate;
 
 const init = () => {
-  const modalWindow = document.querySelector('.modal');
   const addProductBtn =
     document.querySelector('.page .crm .crm__content .crm__head .crm__button');
   const table = document.querySelector('.crm__table-body');
-  const discontInput =
-    document.querySelector('.form__text-input--type_discont');
-  const checkbox = document.querySelector('.form__checkbox');
-  const form = document.querySelector('.form');
-  const inputPrice = document.querySelector('#price');
-  const inputCount = document.querySelector('#count');
-  const inputHidden = document.querySelector('.form__text-input--hidden');
   const totalSumAllSpan = document.querySelector('.crm__bold-text');
-  const finishSumProductSpan = document.querySelector('.form__bold-text');
 
-  const CRMproducts = productsRender(URL);
+  window.onload = productsRender(URL);
 
   totalSumAllSpan.textContent = totalSumTable();
 
-  discontControl(modalWindow, discontInput, checkbox);
-  modalControl(addProductBtn, modalWindow, inputHidden);
+  addProductBtn.addEventListener('click', () => {
+    showModal(null, {
+      title: null,
+      category: null,
+      units: null,
+      description: null,
+      count: null,
+      price: null,
+      discount: null,
+    },
+    'Добавить товар');
+  });
+
+  table.addEventListener('click', async ({ target }) => {
+    if (target.closest('.correct-product')) {
+      const id = target.closest('.crm__table-row').id;
+      changeProductRender(`${URL}/${id}`);
+    }
+  });
+
   deleteItemInTable(table);
-  formControl(
-      form,
-      modalWindow,
-      totalSumAllSpan,
-      finishSumProductSpan,
-      inputPrice,
-      inputCount,
-      discontInput,
-      CRMproducts,
-  );
 };
 
 init();

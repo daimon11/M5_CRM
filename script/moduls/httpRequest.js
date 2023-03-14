@@ -1,8 +1,4 @@
-import renderAndCreate from './renderAndCreate.js';
-
-const {
-  renderGoods,
-} = renderAndCreate;
+import { renderGoods, showModal } from './renderAndCreate.js';
 
 export const httpRequest = (url, {
   method = 'get',
@@ -49,6 +45,13 @@ export const productsRender = (url) => {
   });
 };
 
+export const changeProductRender = (url) => {
+  httpRequest(url, {
+    methed: 'get',
+    callback: showModal,
+  });
+};
+
 export const httpRequestDel = (url) => {
   const xhr = new XMLHttpRequest();
   xhr.open('DELETE', url);
@@ -56,7 +59,7 @@ export const httpRequestDel = (url) => {
   xhr.addEventListener('load', () => {
     if (xhr.status < 204 || xhr.readyState === 4) {
       console.log('Good request');
-      productsRender(`http://localhost:3000/api/goods`);
+      productsRender(`https://quickest-cubic-pyroraptor.glitch.me/api/goods`);
     } else {
       throw new Error('Bad request');
     }
