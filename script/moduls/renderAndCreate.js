@@ -165,7 +165,7 @@ export const showModal = async (err, data, str = 'Изменить товар') 
     textContentSpan: 'Описание',
   }, data.description);
   labelDescription.elem.classList.add('form__description');
-  labelDescription.elem.setAttribute('maxlength', 80);
+  labelDescription.elem.setAttribute('minlength', 80);
 
   const labelCount = createLabel({
     element: 'input',
