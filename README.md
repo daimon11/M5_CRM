@@ -1,1 +1,1 @@
-# M5_CRM# vk-meeting-room-form
+# vk-meeting-room-form
